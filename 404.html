@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found — Shivam Sharma</title>
+    <!-- Tailwind CSS Play CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans & Fraunces -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Fraunces"', 'serif'],
+                    },
+                    colors: {
+                        terracotta: {
+                            DEFAULT: '#C1583A',
+                            light: '#D37559',
+                            dark: '#A34327',
+                            soft: '#FAF0ED',
+                        },
+                        cream: {
+                            DEFAULT: '#FDFBF7',
+                            darker: '#F5ECE3',
+                            card: '#FCF8F2',
+                        },
+                        charcoal: '#1F1A17',
+                        sand: '#60524E',
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px) rotate(-2deg)' },
+                            '50%': { transform: 'translateY(-15px) rotate(1deg)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Subtle Noise Grain Overlay to match premium portfolio aesthetics */
+        .grain {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+        }
+    </style>
+</head>
+<body class="bg-cream text-charcoal font-sans h-full flex flex-col justify-between overflow-x-hidden selection:bg-terracotta selection:text-white">
+
+    <!-- Subtle paper noise layer -->
+    <div class="fixed inset-0 pointer-events-none grain z-40"></div>
+
+    <!-- Header Navigation (Simplified) -->
+    <header class="w-full z-30 bg-cream/80 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+            <!-- Brand Mark -->
+            <a href="/" class="flex items-center gap-3 group text-lg font-bold select-none cursor-pointer">
+                <span class="w-8 h-8 bg-terracotta text-cream flex items-center justify-center rounded-full font-serif font-semibold text-lg italic tracking-wider shadow-sm group-hover:scale-105 transition-transform">S</span>
+                <span class="tracking-tight hover:text-terracotta transition-colors">shivam.sharma</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow flex items-center justify-center px-6 py-12 relative">
+        <div class="max-w-xl w-full text-center space-y-10 relative z-10 flex flex-col items-center">
+            
+            <!-- Graphic 404 Floating Card (Matches Hero aesthetic) -->
+            <div class="relative w-64 h-48 flex items-center justify-center animate-float mb-4">
+                <div class="absolute inset-0 bg-terracotta/5 rounded-full filter blur-2xl"></div>
+                
+                <!-- Main 404 Card -->
+                <div class="bg-white p-6 rounded-3xl shadow-xl border border-sand/15 transform rotate-3 relative z-10 w-full">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-[10px] bg-terracotta-soft text-terracotta font-extrabold tracking-widest uppercase px-2.5 py-1 rounded-full">SYSTEM_ERROR</span>
+                        <span class="text-xs text-sand font-mono">CODE: 404</span>
+                    </div>
+                    <h1 class="text-7xl font-serif font-bold text-terracotta italic tracking-tighter my-2">404</h1>
+                    <p class="text-[11px] text-sand font-mono">> Requested path could not be resolved</p>
+                </div>
+                
+                <!-- Decorative Sparkle Sticker -->
+                <div class="absolute -bottom-4 -right-4 bg-charcoal text-cream p-2.5 rounded-2xl shadow-lg transform rotate-12">
+                    <svg class="w-6 h-6 text-terracotta" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12,2L14.7,8.3L21,11L14.7,13.7L12,20L9.3,13.7L3,11L9.3,8.3L12,2Z"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Descriptive Text -->
+            <div class="space-y-4">
+                <h2 class="text-3xl sm:text-4xl font-serif font-bold text-charcoal">This trajectory is off-strategy.</h2>
+                <p class="text-sand text-base max-w-md mx-auto leading-relaxed">
+                    The page you are looking for has been moved, archived, or does not exist. Let us realign your navigation.
+                </p>
+            </div>
+
+            <!-- Redirect CTA Button -->
+            <div>
+                <a href="/" class="px-8 py-4 bg-terracotta text-white hover:bg-terracotta-dark text-xs font-extrabold uppercase tracking-widest rounded-full shadow-lg hover:shadow-xl transition-all inline-flex items-center gap-2 group">
+                    <i data-lucide="arrow-left" class="w-4 h-4 group-hover:-translate-x-1 transition-transform"></i>
+                    Return To Portfolio
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full py-10 border-t border-sand/10 px-6 bg-cream">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-sand">
+            <p>&copy; 2026 Shivam Sharma. All Rights Reserved.</p>
+            <p>Strategy first, digital fluency always.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>

@@ -53,6 +53,87 @@
         }
     </script>
     <style>
+        /* Custom crosshair cursor */
+        * { cursor: none !important; }
+
+        #cursor-crosshair {
+            position: fixed;
+            top: 0; left: 0;
+            width: 28px; height: 28px;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
+        }
+        #cursor-crosshair .ch-line-h,
+        #cursor-crosshair .ch-line-v {
+            position: absolute;
+            background: #C1583A;
+            border-radius: 2px;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+        #cursor-crosshair .ch-line-h {
+            width: 100%; height: 1.5px;
+            top: 50%; left: 0;
+            transform: translateY(-50%);
+        }
+        #cursor-crosshair .ch-line-v {
+            height: 100%; width: 1.5px;
+            left: 50%; top: 0;
+            transform: translateX(-50%);
+        }
+        #cursor-crosshair .ch-center {
+            position: absolute;
+            width: 5px; height: 5px;
+            border-radius: 50%;
+            background: #C1583A;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+        #cursor-crosshair .ch-gap-h,
+        #cursor-crosshair .ch-gap-v {
+            position: absolute;
+            background: var(--cursor-bg, #FDFBF7);
+            z-index: 1;
+            transition: background 0.2s ease;
+        }
+        #cursor-crosshair .ch-gap-h {
+            width: 9px; height: 3px;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        #cursor-crosshair .ch-gap-v {
+            width: 3px; height: 9px;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #cursor-crosshair.is-hovering {
+            width: 40px; height: 40px;
+        }
+        #cursor-crosshair.is-hovering .ch-line-h,
+        #cursor-crosshair.is-hovering .ch-line-v {
+            background: #A34327;
+        }
+        #cursor-crosshair.is-hovering .ch-center {
+            background: #A34327;
+            transform: translate(-50%, -50%) scale(1.6);
+        }
+
+        #cursor-dot {
+            position: fixed;
+            top: 0; left: 0;
+            width: 6px; height: 6px;
+            background: #C1583A;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+            transition: transform 0.08s ease, background 0.2s ease, opacity 0.2s ease;
+            opacity: 0.5;
+        }
+
         /* Custom scrollbar matching aesthetic */
         ::-webkit-scrollbar {
             width: 8px;
@@ -102,6 +183,16 @@
     </style>
 </head>
 <body class="bg-cream text-charcoal font-sans relative overflow-x-hidden selection:bg-terracotta selection:text-white">
+
+    <!-- Custom crosshair cursor -->
+    <div id="cursor-crosshair">
+        <div class="ch-line-h"></div>
+        <div class="ch-line-v"></div>
+        <div class="ch-gap-h"></div>
+        <div class="ch-gap-v"></div>
+        <div class="ch-center"></div>
+    </div>
+    <div id="cursor-dot"></div>
 
     <!-- Subtle paper noise layer -->
     <div class="fixed inset-0 pointer-events-none grain z-40"></div>
@@ -976,6 +1067,55 @@
                 revealObserver.observe(element);
             });
         }
+
+        // 5. CUSTOM CROSSHAIR CURSOR
+        (function() {
+            const crosshair = document.getElementById('cursor-crosshair');
+            const dot = document.getElementById('cursor-dot');
+            let mouseX = -100, mouseY = -100;
+            let dotX = -100, dotY = -100;
+            let rafId;
+
+            const interactiveSelectors = 'a, button, [onclick], input, textarea, select, label, [role="button"]';
+
+            document.addEventListener('mousemove', e => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                crosshair.style.left = mouseX + 'px';
+                crosshair.style.top  = mouseY + 'px';
+
+                const hovered = document.elementFromPoint(mouseX, mouseY);
+                const isInteractive = hovered && hovered.closest(interactiveSelectors);
+                crosshair.classList.toggle('is-hovering', !!isInteractive);
+
+                // Detect background color for gap fill
+                const bgEl = hovered ? hovered.closest('[class*="bg-[#1F1A17]"], [class*="bg-charcoal"]') : null;
+                const gapColor = bgEl ? '#1F1A17' : '#FDFBF7';
+                crosshair.style.setProperty('--cursor-bg', gapColor);
+                crosshair.querySelectorAll('.ch-gap-h, .ch-gap-v').forEach(el => {
+                    el.style.background = gapColor;
+                });
+            });
+
+            document.addEventListener('mouseleave', () => {
+                crosshair.style.opacity = '0';
+                dot.style.opacity = '0';
+            });
+            document.addEventListener('mouseenter', () => {
+                crosshair.style.opacity = '1';
+                dot.style.opacity = '0.5';
+            });
+
+            // Smooth trailing dot
+            function animateDot() {
+                dotX += (mouseX - dotX) * 0.18;
+                dotY += (mouseY - dotY) * 0.18;
+                dot.style.left = dotX + 'px';
+                dot.style.top  = dotY + 'px';
+                rafId = requestAnimationFrame(animateDot);
+            }
+            animateDot();
+        })();
     </script>
 
 </body>

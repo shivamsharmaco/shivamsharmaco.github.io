@@ -53,10 +53,13 @@
         }
     </script>
     <style>
-        /* Custom crosshair cursor */
-        * { cursor: none !important; }
+        /* Custom crosshair cursor — desktop (fine pointer) only */
+        @media (pointer: fine) {
+            * { cursor: none !important; }
+        }
 
         #cursor-crosshair {
+            display: none;
             position: fixed;
             top: 0; left: 0;
             width: 28px; height: 28px;
@@ -64,13 +67,13 @@
             z-index: 9999;
             transform: translate(-50%, -50%);
             transition: width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
+            mix-blend-mode: difference;
         }
         #cursor-crosshair .ch-line-h,
         #cursor-crosshair .ch-line-v {
             position: absolute;
-            background: #C1583A;
+            background: #ffffff;
             border-radius: 2px;
-            transition: background 0.2s ease, transform 0.2s ease;
         }
         #cursor-crosshair .ch-line-h {
             width: 100%; height: 1.5px;
@@ -84,10 +87,6 @@
         }
         #cursor-crosshair.is-hovering {
             width: 40px; height: 40px;
-        }
-        #cursor-crosshair.is-hovering .ch-line-h,
-        #cursor-crosshair.is-hovering .ch-line-v {
-            background: #A34327;
         }
 
         /* Custom scrollbar matching aesthetic */
@@ -241,7 +240,7 @@
                     </div>
                     
                     <p class="text-xl sm:text-2xl font-serif text-sand leading-relaxed max-w-xl italic reveal reveal-up" style="transition-delay: 150ms;">
-                        "Strategy-first. Digitally fluent. <br class="hidden sm:inline" /> I make brands work smarter."
+                        &quot;Strategy-first. Digitally fluent. <br class="hidden sm:inline" /> I make brands work smarter.&quot;
                     </p>
 
                     <!-- Profile Roles Badges (Row) -->
@@ -347,7 +346,7 @@
             <div class="max-w-4xl mx-auto text-center space-y-8 reveal reveal-scale">
                 <p class="text-xs uppercase tracking-widest text-terracotta font-extrabold">My Vision</p>
                 <h3 class="text-3xl sm:text-4xl md:text-5xl font-serif text-charcoal leading-tight">
-                    "I build high-growth connections between structured corporate strategy, digital audience mapping, and automated deep learning execution."
+                    &quot;I build high-growth connections between structured corporate strategy, digital audience mapping, and automated deep learning execution.&quot;
                 </h3>
                 <div class="w-16 h-1 bg-terracotta mx-auto rounded-full"></div>
             </div>
@@ -506,7 +505,7 @@
                     <!-- Quote representation widget -->
                     <div class="p-6 bg-cream-darker rounded-3xl border border-sand/10 space-y-4 relative">
                         <p class="text-sm italic text-sand">
-                            "A broad strategic background allows me to communicate effortlessly with stakeholders, while my technical skills empower me to actually write the execution files myself."
+                            &quot;A broad strategic background allows me to communicate effortlessly with stakeholders, while my technical skills empower me to actually write the execution files myself.&quot;
                         </p>
                         <div class="flex items-center gap-3">
                             <span class="w-8 h-8 rounded-full bg-terracotta text-white flex items-center justify-center text-xs font-bold font-serif italic">S</span>
@@ -1022,7 +1021,10 @@
 
         // 5. CUSTOM CROSSHAIR CURSOR
         (function() {
+            if (!window.matchMedia('(pointer: fine)').matches) return;
+
             const crosshair = document.getElementById('cursor-crosshair');
+            crosshair.style.display = 'block';
             const interactiveSelectors = 'a, button, [onclick], input, textarea, select, label, [role="button"]';
 
             document.addEventListener('mousemove', e => {

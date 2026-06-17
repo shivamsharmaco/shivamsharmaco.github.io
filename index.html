@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shivam Sharma: Strategy, Digital Marketing & AI/ML Portfolio</title>
+    <title>Shivam Sharma — Strategy, Digital Marketing & AI/ML Portfolio</title>
     <!-- Tailwind CSS Play CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Plus Jakarta Sans & Fraunces -->
@@ -117,7 +117,7 @@
     </div>
 
     <!-- Header Navigation -->
-    <header class="sticky top-0 w-full z-30 transition-all duration-300 border-b border-transparent bg-cream/85 backdrop-blur-md">
+    <header class="sticky top-0 w-full z-40 transition-all duration-300 border-b border-transparent bg-cream/85 backdrop-blur-md">
         <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
             <!-- Brand Mark / Logo -->
             <a href="#" class="flex items-center gap-3 group text-lg font-bold select-none cursor-pointer">
@@ -148,17 +148,17 @@
                     <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
                 </a>
 
-                <!-- Mobile Menu Button -->
-                <button id="mobile-menu-btn" class="md:hidden flex flex-col justify-center items-center w-9 h-9 border border-sand/20 rounded-full" aria-label="Toggle menu">
-                    <span class="w-4 h-0.5 bg-charcoal mb-1 transition-transform" id="menu-line-1"></span>
-                    <span class="w-4 h-0.5 bg-charcoal transition-transform" id="menu-line-2"></span>
+                <!-- Mobile Menu Button with Custom Open Transition Background -->
+                <button id="mobile-menu-btn" class="md:hidden flex flex-col justify-center items-center w-9 h-9 border border-sand/20 bg-cream rounded-full transition-all duration-300 relative z-50" aria-label="Toggle menu">
+                    <span class="w-4 h-0.5 bg-charcoal mb-1 transition-transform duration-300" id="menu-line-1"></span>
+                    <span class="w-4 h-0.5 bg-charcoal transition-transform duration-300" id="menu-line-2"></span>
                 </button>
             </div>
         </div>
     </header>
 
     <!-- Mobile Drawer Menu -->
-    <div id="mobile-drawer" class="fixed inset-0 bg-cream/98 z-20 flex flex-col justify-center items-center gap-8 -translate-y-full transition-transform duration-500 ease-in-out md:hidden px-6">
+    <div id="mobile-drawer" class="fixed inset-0 bg-cream z-30 flex flex-col justify-center items-center gap-8 -translate-y-full transition-transform duration-500 ease-in-out md:hidden px-6">
         <a href="#work" class="mobile-nav-link text-3xl font-serif font-bold text-charcoal hover:text-terracotta" data-target="work">Work.</a>
         <a href="#skills" class="mobile-nav-link text-3xl font-serif font-bold text-charcoal hover:text-terracotta" data-target="skills">Skills.</a>
         <a href="#contact" class="mobile-nav-link text-3xl font-serif font-bold text-charcoal hover:text-terracotta" data-target="contact">Contact.</a>
@@ -547,13 +547,15 @@
                     </h2>
                 </div>
                 
-                <!-- Contact Details Grid -->
+                <!-- Contact Details Grid (Upgraded with clean, high-contrast inline SVGs) -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto text-left">
-                    <!-- Email Link & Clipboard Copier -->
+                    <!-- Email Card with Inline SVG -->
                     <div class="p-6 bg-cream-card rounded-3xl border border-sand/10 flex flex-col justify-between gap-6 hover:border-terracotta/30 transition-all shadow-sm">
                         <div class="flex items-center gap-4">
                             <div class="w-12 h-12 bg-terracotta-soft text-terracotta rounded-2xl flex items-center justify-center shrink-0">
-                                <i data-lucide="mail" class="w-6 h-6"></i>
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"></path>
+                                </svg>
                             </div>
                             <div class="overflow-hidden">
                                 <span class="text-[10px] text-sand uppercase tracking-wider font-bold">Direct Email</span>
@@ -565,11 +567,13 @@
                         </button>
                     </div>
 
-                    <!-- LinkedIn connect badge -->
+                    <!-- LinkedIn Card with Inline SVG -->
                     <a href="https://www.linkedin.com/in/shivamsharmaco/" target="_blank" class="p-6 bg-cream-card rounded-3xl border border-sand/10 flex flex-col justify-between gap-6 hover:border-terracotta/30 transition-all shadow-sm group">
                         <div class="flex items-center gap-4">
                             <div class="w-12 h-12 bg-[#0A66C2]/10 text-[#0A66C2] rounded-2xl flex items-center justify-center shrink-0">
-                                <i data-lucide="linkedin" class="w-6 h-6"></i>
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                                </svg>
                             </div>
                             <div>
                                 <span class="text-[10px] text-sand uppercase tracking-wider font-bold">Networking</span>
@@ -876,18 +880,47 @@
         const mobileDrawer = document.getElementById('mobile-drawer');
         const menuLine1 = document.getElementById('menu-line-1');
         const menuLine2 = document.getElementById('menu-line-2');
+        const headerElement = document.querySelector('header');
         let isDrawerOpen = false;
 
         mobileMenuBtn.addEventListener('click', () => {
             isDrawerOpen = !isDrawerOpen;
             if (isDrawerOpen) {
                 mobileDrawer.classList.remove('-translate-y-full');
-                menuLine1.style.transform = 'translateY(2px) rotate(45deg)';
-                menuLine2.style.transform = 'translateY(-2px) rotate(-45deg)';
+                menuLine1.style.transform = 'translateY(2.5px) rotate(45deg)';
+                menuLine2.style.transform = 'translateY(-2.5px) rotate(-45deg)';
+                
+                // Toggle lines to white high contrast
+                menuLine1.classList.remove('bg-charcoal');
+                menuLine1.classList.add('bg-cream');
+                menuLine2.classList.remove('bg-charcoal');
+                menuLine2.classList.add('bg-cream');
+
+                // Toggle menu button background to solid Terracotta
+                mobileMenuBtn.classList.add('bg-terracotta', 'border-transparent');
+                mobileMenuBtn.classList.remove('border-sand/20', 'bg-cream');
+
+                // Apply solid cream background to header when drawer is open
+                headerElement.classList.add('bg-[#FDFBF7]');
+                headerElement.classList.remove('bg-cream/85', 'backdrop-blur-md');
             } else {
                 mobileDrawer.classList.add('-translate-y-full');
                 menuLine1.style.transform = 'none';
                 menuLine2.style.transform = 'none';
+
+                // Restore line colours to charcoal
+                menuLine1.classList.add('bg-charcoal');
+                menuLine1.classList.remove('bg-cream');
+                menuLine2.classList.add('bg-charcoal');
+                menuLine2.classList.remove('bg-cream');
+
+                // Restore menu button background style
+                mobileMenuBtn.classList.remove('bg-terracotta', 'border-transparent');
+                mobileMenuBtn.classList.add('border-sand/20', 'bg-cream');
+
+                // Restore transparent background blur when drawer closes
+                headerElement.classList.remove('bg-[#FDFBF7]');
+                headerElement.classList.add('bg-cream/85', 'backdrop-blur-md');
             }
         });
 
@@ -900,6 +933,17 @@
                 mobileDrawer.classList.add('-translate-y-full');
                 menuLine1.style.transform = 'none';
                 menuLine2.style.transform = 'none';
+
+                menuLine1.classList.add('bg-charcoal');
+                menuLine1.classList.remove('bg-cream');
+                menuLine2.classList.add('bg-charcoal');
+                menuLine2.classList.remove('bg-cream');
+
+                mobileMenuBtn.classList.remove('bg-terracotta', 'border-transparent');
+                mobileMenuBtn.classList.add('border-sand/20', 'bg-cream');
+
+                headerElement.classList.remove('bg-[#FDFBF7]');
+                headerElement.classList.add('bg-cream/85', 'backdrop-blur-md');
                 
                 // Scroll to target smoothly after slight pause
                 setTimeout(() => {

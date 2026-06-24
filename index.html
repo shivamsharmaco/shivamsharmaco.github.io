@@ -53,40 +53,33 @@
         }
     </script>
     <style>
-        /* Custom crosshair cursor — desktop (fine pointer) only */
+        /* Inverted blob cursor — desktop (fine pointer) only */
         @media (pointer: fine) {
             * { cursor: none !important; }
         }
 
-        #cursor-crosshair {
+        #cursor-blob {
             display: none;
             position: fixed;
             top: 0; left: 0;
             width: 28px; height: 28px;
+            border-radius: 50%;
+            background: #ffffff;
             pointer-events: none;
             z-index: 9999;
-            transform: translate(-50%, -50%);
-            transition: width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
+            transform: translate(-50%, -50%) scale(1);
+            transition: width 0.25s cubic-bezier(0.16,1,0.3,1),
+                        height 0.25s cubic-bezier(0.16,1,0.3,1),
+                        opacity 0.25s ease,
+                        transform 0.12s ease;
             mix-blend-mode: difference;
+            will-change: transform, width, height;
         }
-        #cursor-crosshair .ch-line-h,
-        #cursor-crosshair .ch-line-v {
-            position: absolute;
-            background: #ffffff;
-            border-radius: 2px;
+        #cursor-blob.is-hovering {
+            width: 56px; height: 56px;
         }
-        #cursor-crosshair .ch-line-h {
-            width: 100%; height: 1.5px;
-            top: 50%; left: 0;
-            transform: translateY(-50%);
-        }
-        #cursor-crosshair .ch-line-v {
-            height: 100%; width: 1.5px;
-            left: 50%; top: 0;
-            transform: translateX(-50%);
-        }
-        #cursor-crosshair.is-hovering {
-            width: 40px; height: 40px;
+        #cursor-blob.is-down {
+            transform: translate(-50%, -50%) scale(0.7);
         }
 
         /* Custom scrollbar matching aesthetic */
@@ -205,15 +198,64 @@
         @media (prefers-reduced-motion: reduce) {
             .sticker, .orbit-path { animation: none; }
         }
+
+        /* ===== Work: pinned horizontal scroll ===== */
+        /* Base / fallback (mobile, touch, reduced-motion): native swipe carousel */
+        .work-panel { padding: 6rem 0; }
+        .work-card { width: 88vw; max-width: 420px; }
+        .work-track {
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            padding: 0 1.5rem 1rem;
+            scroll-padding-left: 1.5rem;
+        }
+        .work-track > .work-card { scroll-snap-align: start; }
+        .work-progress { display: none; }
+
+        /* Desktop pinned mode */
+        @media (pointer: fine) and (min-width: 769px) and (prefers-reduced-motion: no-preference) {
+            .work-pin { height: 300vh; position: relative; }
+            .work-panel {
+                position: sticky;
+                top: 0;
+                height: 100vh;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                padding: 5rem 0 2rem;
+            }
+            .work-panel-inner { max-width: none; }
+            .work-track {
+                overflow: visible;
+                scroll-snap-type: none;
+                padding: 0;
+                will-change: transform;
+            }
+            .work-card { width: clamp(380px, 44vw, 560px); max-width: none; }
+            .work-progress {
+                display: block;
+                height: 3px;
+                background: rgba(96,82,78,0.15);
+                border-radius: 2px;
+                margin: 1.5rem 0 0;
+                overflow: hidden;
+            }
+            .work-progress-bar {
+                height: 100%; width: 0%;
+                background: #C1583A;
+                border-radius: 2px;
+            }
+        }
     </style>
 </head>
 <body class="bg-cream text-charcoal font-sans relative overflow-x-hidden selection:bg-terracotta selection:text-white">
 
-    <!-- Custom crosshair cursor -->
-    <div id="cursor-crosshair">
-        <div class="ch-line-h"></div>
-        <div class="ch-line-v"></div>
-    </div>
+    <!-- Inverted blob cursor -->
+    <div id="cursor-blob"></div>
 
     <!-- Subtle paper noise layer -->
     <div class="fixed inset-0 pointer-events-none grain z-40"></div>
@@ -394,138 +436,145 @@
             </div>
         </section>
 
-        <!-- 3. WORK SECTION -->
-        <section id="work" class="py-24 bg-cream-darker/50 px-6 scroll-mt-12">
-            <div class="max-w-7xl mx-auto space-y-16">
-                
-                <!-- Section Intro Heading -->
-                <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 reveal reveal-up">
-                    <div class="space-y-4">
-                        <span class="text-xs font-bold uppercase tracking-widest text-terracotta">Selected Case Studies</span>
-                        <h2 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-charcoal">
-                            My Practice &amp; Execution
-                        </h2>
-                    </div>
-                    <p class="text-sand text-lg max-w-md">
-                        A view into projects blending analytical strategy, precise growth marketing architectures, and custom programmatic models.
-                    </p>
-                </div>
+        <!-- 3. WORK SECTION (pinned horizontal scroll on desktop) -->
+        <section id="work" class="bg-cream-darker/50 scroll-mt-20">
+            <div id="work-pin" class="work-pin">
+                <div class="work-panel">
+                    <div class="work-panel-inner max-w-7xl mx-auto px-6 w-full">
 
-                <!-- 3 Case Study Cards Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    
-                    <!-- Card 1: Consulting -->
-                    <div class="bg-cream rounded-3xl border border-sand/10 overflow-hidden shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 flex flex-col h-full group reveal reveal-up" style="transition-delay: 100ms;">
-                        <!-- Card Header Graphic representing workflow -->
-                        <div class="h-48 bg-gradient-to-br from-terracotta-soft to-amber-100 flex items-center justify-center p-6 relative overflow-hidden border-b border-sand/5">
-                            <div class="absolute inset-0 bg-[radial-gradient(#C1583A_1px,transparent_1px)] [background-size:16px_16px] opacity-20"></div>
-                            <!-- Styled dashboard graphic represent stats -->
-                            <div class="relative bg-white w-full rounded-2xl shadow-lg border border-sand/5 p-4 transform translate-y-4 group-hover:translate-y-2 transition-all duration-300">
-                                <div class="flex items-center gap-1.5 mb-2">
-                                    <span class="w-2.5 h-2.5 bg-[#1F1A17] rounded-full"></span>
-                                    <span class="text-[9px] font-bold tracking-wider text-sand">STAKEHOLDER PIPELINE</span>
-                                </div>
-                                <div class="flex items-end gap-1.5 h-12">
-                                    <div class="bg-terracotta/20 w-full h-1/3 rounded-sm"></div>
-                                    <div class="bg-terracotta/40 w-full h-1/2 rounded-sm"></div>
-                                    <div class="bg-terracotta w-full h-3/4 rounded-sm"></div>
-                                    <div class="bg-[#1F1A17] w-full h-full rounded-sm flex items-center justify-center text-[8px] text-white font-bold font-mono">24%</div>
-                                </div>
+                        <!-- Section Intro Heading -->
+                        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 reveal reveal-up">
+                            <div class="space-y-4">
+                                <span class="text-xs font-bold uppercase tracking-widest text-terracotta">Selected Case Studies</span>
+                                <h2 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-charcoal">
+                                    My Practice &amp; Execution
+                                </h2>
                             </div>
-                        </div>
-                        
-                        <!-- Content -->
-                        <div class="p-6 sm:p-8 flex flex-col flex-grow space-y-4">
-                            <div class="flex justify-between items-center text-xs">
-                                <span class="px-2.5 py-1 bg-terracotta-soft text-terracotta font-extrabold rounded-full tracking-wider uppercase text-[10px]">Consulting</span>
-                                <span class="text-sand font-medium">Strategy &amp; Ops</span>
-                            </div>
-                            <h3 class="text-xl font-serif font-bold text-charcoal leading-snug group-hover:text-terracotta transition-colors">
-                                Enterprise Go-To-Market &amp; Cycle Optimisation
-                            </h3>
-                            <p class="text-sand text-sm leading-relaxed flex-grow">
-                                Re-engineered key pipeline cycles for regional commerce systems. Used operational modelling techniques to resolve distribution bottlenecks, leading to substantial structural cycle reductions.
+                            <p class="text-sand text-lg max-w-md">
+                                A view into projects blending analytical strategy, precise growth marketing architectures, and custom programmatic models.
                             </p>
-                            <div class="pt-4 border-t border-sand/10">
-                                <button onclick="openCaseStudy(1)" class="w-full text-center px-4 py-2.5 bg-cream-darker hover:bg-terracotta hover:text-white transition-colors text-xs font-bold uppercase tracking-wider rounded-lg text-charcoal">
-                                    Read Case Study
-                                </button>
-                            </div>
                         </div>
-                    </div>
 
-                    <!-- Card 2: Marketing -->
-                    <div class="bg-cream rounded-3xl border border-sand/10 overflow-hidden shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 flex flex-col h-full group reveal reveal-up" style="transition-delay: 250ms;">
-                        <!-- Card Header Graphic representing digital loop -->
-                        <div class="h-48 bg-gradient-to-br from-amber-50 to-orange-100 flex items-center justify-center p-6 relative overflow-hidden border-b border-sand/5">
-                            <div class="absolute inset-0 bg-[radial-gradient(#C1583A_1px,transparent_1px)] [background-size:16px_16px] opacity-20"></div>
-                            <!-- Circular animated representation -->
-                            <div class="relative bg-white w-40 h-40 rounded-full shadow-lg border border-sand/5 p-4 flex flex-col items-center justify-center transform translate-y-4 group-hover:translate-y-2 transition-all duration-300">
-                                <div class="w-full h-full flex items-center justify-center relative">
-                                    <!-- Rotating orbit loops -->
-                                    <div class="absolute w-24 h-24 border-2 border-dashed border-terracotta/20 rounded-full animate-spin-slow"></div>
-                                    <div class="absolute w-12 h-12 bg-terracotta-soft text-terracotta rounded-full flex items-center justify-center text-sm font-bold">4.2x</div>
-                                    <div class="absolute top-1 left-1 w-4 h-4 bg-[#1F1A17] rounded-full flex items-center justify-center text-[8px] text-white font-bold">ROI</div>
+                        <!-- Horizontal scroll progress (desktop pinned mode) -->
+                        <div class="work-progress" aria-hidden="true"><div id="work-progress-bar" class="work-progress-bar"></div></div>
+
+                        <!-- Case Study Track (pans horizontally on desktop, swipe carousel on mobile) -->
+                        <div id="work-track" class="work-track">
+
+                            <!-- Card 1: Consulting -->
+                            <div class="work-card shrink-0 bg-cream rounded-3xl border border-sand/10 overflow-hidden shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 flex flex-col group">
+                                <!-- Card Header Graphic representing workflow -->
+                                <div class="h-48 bg-gradient-to-br from-terracotta-soft to-amber-100 flex items-center justify-center p-6 relative overflow-hidden border-b border-sand/5">
+                                    <div class="absolute inset-0 bg-[radial-gradient(#C1583A_1px,transparent_1px)] [background-size:16px_16px] opacity-20"></div>
+                                    <!-- Styled dashboard graphic represent stats -->
+                                    <div class="relative bg-white w-full rounded-2xl shadow-lg border border-sand/5 p-4 transform translate-y-4 group-hover:translate-y-2 transition-all duration-300">
+                                        <div class="flex items-center gap-1.5 mb-2">
+                                            <span class="w-2.5 h-2.5 bg-[#1F1A17] rounded-full"></span>
+                                            <span class="text-[9px] font-bold tracking-wider text-sand">STAKEHOLDER PIPELINE</span>
+                                        </div>
+                                        <div class="flex items-end gap-1.5 h-12">
+                                            <div class="bg-terracotta/20 w-full h-1/3 rounded-sm"></div>
+                                            <div class="bg-terracotta/40 w-full h-1/2 rounded-sm"></div>
+                                            <div class="bg-terracotta w-full h-3/4 rounded-sm"></div>
+                                            <div class="bg-[#1F1A17] w-full h-full rounded-sm flex items-center justify-center text-[8px] text-white font-bold font-mono">24%</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Content -->
+                                <div class="p-6 sm:p-8 flex flex-col flex-grow space-y-4">
+                                    <div class="flex justify-between items-center text-xs">
+                                        <span class="px-2.5 py-1 bg-terracotta-soft text-terracotta font-extrabold rounded-full tracking-wider uppercase text-[10px]">Consulting</span>
+                                        <span class="text-sand font-medium">Strategy &amp; Ops</span>
+                                    </div>
+                                    <h3 class="text-xl font-serif font-bold text-charcoal leading-snug group-hover:text-terracotta transition-colors">
+                                        Enterprise Go-To-Market &amp; Cycle Optimisation
+                                    </h3>
+                                    <p class="text-sand text-sm leading-relaxed flex-grow">
+                                        Re-engineered key pipeline cycles for regional commerce systems. Used operational modelling techniques to resolve distribution bottlenecks, leading to substantial structural cycle reductions.
+                                    </p>
+                                    <div class="pt-4 border-t border-sand/10">
+                                        <button onclick="openCaseStudy(1)" class="w-full text-center px-4 py-2.5 bg-cream-darker hover:bg-terracotta hover:text-white transition-colors text-xs font-bold uppercase tracking-wider rounded-lg text-charcoal">
+                                            Read Case Study
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        
-                        <!-- Content -->
-                        <div class="p-6 sm:p-8 flex flex-col flex-grow space-y-4">
-                            <div class="flex justify-between items-center text-xs">
-                                <span class="px-2.5 py-1 bg-amber-500/10 text-amber-700 font-extrabold rounded-full tracking-wider uppercase text-[10px]">Marketing</span>
-                                <span class="text-sand font-medium">Growth / Performance</span>
-                            </div>
-                            <h3 class="text-xl font-serif font-bold text-charcoal leading-snug group-hover:text-terracotta transition-colors">
-                                The Hyper-Targeted Consumer Funnel Build
-                            </h3>
-                            <p class="text-sand text-sm leading-relaxed flex-grow">
-                                Programmed search engine layouts and multi-touch performance campaigns for a scaling direct-to-consumer apparel ecosystem, achieving a 4.2x verified ROI.
-                            </p>
-                            <div class="pt-4 border-t border-sand/10">
-                                <button onclick="openCaseStudy(2)" class="w-full text-center px-4 py-2.5 bg-cream-darker hover:bg-terracotta hover:text-white transition-colors text-xs font-bold uppercase tracking-wider rounded-lg text-charcoal">
-                                    Read Case Study
-                                </button>
-                            </div>
-                        </div>
-                    </div>
 
-                    <!-- Card 3: AI/ML -->
-                    <div class="bg-cream rounded-3xl border border-sand/10 overflow-hidden shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 flex flex-col h-full group reveal reveal-up" style="transition-delay: 400ms;">
-                        <!-- Card Header Graphic representing AI pipeline -->
-                        <div class="h-48 bg-[#1F1A17] text-white flex items-center justify-center p-6 relative overflow-hidden border-b border-sand/5">
-                            <div class="absolute inset-0 bg-[radial-gradient(#5C5652_1px,transparent_1px)] [background-size:16px_16px] opacity-30"></div>
-                            <!-- AI model matrix preview -->
-                            <div class="relative bg-neutral-800 w-full rounded-2xl border border-neutral-700 p-4 font-mono text-[9px] text-emerald-400 space-y-2 transform translate-y-4 group-hover:translate-y-2 transition-all duration-300">
-                                <div class="flex justify-between border-b border-neutral-700 pb-1.5">
-                                    <span>[SYSTEM_TRAINING]</span>
-                                    <span class="animate-pulse">● LIVE</span>
+                            <!-- Card 2: Marketing -->
+                            <div class="work-card shrink-0 bg-cream rounded-3xl border border-sand/10 overflow-hidden shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 flex flex-col group">
+                                <!-- Card Header Graphic representing digital loop -->
+                                <div class="h-48 bg-gradient-to-br from-amber-50 to-orange-100 flex items-center justify-center p-6 relative overflow-hidden border-b border-sand/5">
+                                    <div class="absolute inset-0 bg-[radial-gradient(#C1583A_1px,transparent_1px)] [background-size:16px_16px] opacity-20"></div>
+                                    <!-- Circular animated representation -->
+                                    <div class="relative bg-white w-40 h-40 rounded-full shadow-lg border border-sand/5 p-4 flex flex-col items-center justify-center transform translate-y-4 group-hover:translate-y-2 transition-all duration-300">
+                                        <div class="w-full h-full flex items-center justify-center relative">
+                                            <!-- Rotating orbit loops -->
+                                            <div class="absolute w-24 h-24 border-2 border-dashed border-terracotta/20 rounded-full animate-spin-slow"></div>
+                                            <div class="absolute w-12 h-12 bg-terracotta-soft text-terracotta rounded-full flex items-center justify-center text-sm font-bold">4.2x</div>
+                                            <div class="absolute top-1 left-1 w-4 h-4 bg-[#1F1A17] rounded-full flex items-center justify-center text-[8px] text-white font-bold">ROI</div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <p class="text-neutral-400">> epochs = 200, batch_size = 32</p>
-                                <p class="text-yellow-300">> test_loss: 0.0242 | accuracy: 0.968</p>
+
+                                <!-- Content -->
+                                <div class="p-6 sm:p-8 flex flex-col flex-grow space-y-4">
+                                    <div class="flex justify-between items-center text-xs">
+                                        <span class="px-2.5 py-1 bg-amber-500/10 text-amber-700 font-extrabold rounded-full tracking-wider uppercase text-[10px]">Marketing</span>
+                                        <span class="text-sand font-medium">Growth / Performance</span>
+                                    </div>
+                                    <h3 class="text-xl font-serif font-bold text-charcoal leading-snug group-hover:text-terracotta transition-colors">
+                                        The Hyper-Targeted Consumer Funnel Build
+                                    </h3>
+                                    <p class="text-sand text-sm leading-relaxed flex-grow">
+                                        Programmed search engine layouts and multi-touch performance campaigns for a scaling direct-to-consumer apparel ecosystem, achieving a 4.2x verified ROI.
+                                    </p>
+                                    <div class="pt-4 border-t border-sand/10">
+                                        <button onclick="openCaseStudy(2)" class="w-full text-center px-4 py-2.5 bg-cream-darker hover:bg-terracotta hover:text-white transition-colors text-xs font-bold uppercase tracking-wider rounded-lg text-charcoal">
+                                            Read Case Study
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        
-                        <!-- Content -->
-                        <div class="p-6 sm:p-8 flex flex-col flex-grow space-y-4">
-                            <div class="flex justify-between items-center text-xs">
-                                <span class="px-2.5 py-1 bg-emerald-500/10 text-emerald-700 font-extrabold rounded-full tracking-wider uppercase text-[10px]">AI / ML</span>
-                                <span class="text-sand font-medium">Python / Predictive</span>
+
+                            <!-- Card 3: AI/ML -->
+                            <div class="work-card shrink-0 bg-cream rounded-3xl border border-sand/10 overflow-hidden shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 flex flex-col group">
+                                <!-- Card Header Graphic representing AI pipeline -->
+                                <div class="h-48 bg-[#1F1A17] text-white flex items-center justify-center p-6 relative overflow-hidden border-b border-sand/5">
+                                    <div class="absolute inset-0 bg-[radial-gradient(#5C5652_1px,transparent_1px)] [background-size:16px_16px] opacity-30"></div>
+                                    <!-- AI model matrix preview -->
+                                    <div class="relative bg-neutral-800 w-full rounded-2xl border border-neutral-700 p-4 font-mono text-[9px] text-emerald-400 space-y-2 transform translate-y-4 group-hover:translate-y-2 transition-all duration-300">
+                                        <div class="flex justify-between border-b border-neutral-700 pb-1.5">
+                                            <span>[SYSTEM_TRAINING]</span>
+                                            <span class="animate-pulse">● LIVE</span>
+                                        </div>
+                                        <p class="text-neutral-400">> epochs = 200, batch_size = 32</p>
+                                        <p class="text-yellow-300">> test_loss: 0.0242 | accuracy: 0.968</p>
+                                    </div>
+                                </div>
+
+                                <!-- Content -->
+                                <div class="p-6 sm:p-8 flex flex-col flex-grow space-y-4">
+                                    <div class="flex justify-between items-center text-xs">
+                                        <span class="px-2.5 py-1 bg-emerald-500/10 text-emerald-700 font-extrabold rounded-full tracking-wider uppercase text-[10px]">AI / ML</span>
+                                        <span class="text-sand font-medium">Python / Predictive</span>
+                                    </div>
+                                    <h3 class="text-xl font-serif font-bold text-charcoal leading-snug group-hover:text-terracotta transition-colors">
+                                        Custom Predictive Scoring Pipelines
+                                    </h3>
+                                    <p class="text-sand text-sm leading-relaxed flex-grow">
+                                        Implemented supervised classification pipelines utilising multi-dimensional random-forest trees to accurately rank prospective user intent metrics.
+                                    </p>
+                                    <div class="pt-4 border-t border-sand/10">
+                                        <button onclick="openCaseStudy(3)" class="w-full text-center px-4 py-2.5 bg-cream-darker hover:bg-terracotta hover:text-white transition-colors text-xs font-bold uppercase tracking-wider rounded-lg text-charcoal">
+                                            Read Case Study
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                            <h3 class="text-xl font-serif font-bold text-charcoal leading-snug group-hover:text-terracotta transition-colors">
-                                Custom Predictive Scoring Pipelines
-                            </h3>
-                            <p class="text-sand text-sm leading-relaxed flex-grow">
-                                Implemented supervised classification pipelines utilising multi-dimensional random-forest trees to accurately rank prospective user intent metrics.
-                            </p>
-                            <div class="pt-4 border-t border-sand/10">
-                                <button onclick="openCaseStudy(3)" class="w-full text-center px-4 py-2.5 bg-cream-darker hover:bg-terracotta hover:text-white transition-colors text-xs font-bold uppercase tracking-wider rounded-lg text-charcoal">
-                                    Read Case Study
-                                </button>
-                            </div>
+
                         </div>
                     </div>
-
                 </div>
             </div>
         </section>
@@ -1061,25 +1110,109 @@
             });
         }
 
-        // 5. CUSTOM CROSSHAIR CURSOR
+        // 5. INVERTED BLOB CURSOR (desktop fine-pointer only)
         (function() {
             if (!window.matchMedia('(pointer: fine)').matches) return;
 
-            const crosshair = document.getElementById('cursor-crosshair');
-            crosshair.style.display = 'block';
+            const blob = document.getElementById('cursor-blob');
+            blob.style.display = 'block';
             const interactiveSelectors = 'a, button, [onclick], input, textarea, select, label, [role="button"]';
 
+            let targetX = window.innerWidth / 2, targetY = window.innerHeight / 2;
+            let curX = targetX, curY = targetY;
+            const ease = 0.18; // lerp factor — lower = more lag
+
+            function render() {
+                curX += (targetX - curX) * ease;
+                curY += (targetY - curY) * ease;
+                blob.style.left = curX + 'px';
+                blob.style.top  = curY + 'px';
+                requestAnimationFrame(render);
+            }
+            requestAnimationFrame(render);
+
             document.addEventListener('mousemove', e => {
-                crosshair.style.left = e.clientX + 'px';
-                crosshair.style.top  = e.clientY + 'px';
+                targetX = e.clientX;
+                targetY = e.clientY;
 
                 const hovered = document.elementFromPoint(e.clientX, e.clientY);
                 const isInteractive = hovered && hovered.closest(interactiveSelectors);
-                crosshair.classList.toggle('is-hovering', !!isInteractive);
+                blob.classList.toggle('is-hovering', !!isInteractive);
             });
 
-            document.addEventListener('mouseleave', () => { crosshair.style.opacity = '0'; });
-            document.addEventListener('mouseenter', () => { crosshair.style.opacity = '1'; });
+            document.addEventListener('mousedown', () => blob.classList.add('is-down'));
+            document.addEventListener('mouseup',   () => blob.classList.remove('is-down'));
+            document.addEventListener('mouseleave', () => { blob.style.opacity = '0'; blob.classList.remove('is-down'); });
+            document.addEventListener('mouseenter', () => { blob.style.opacity = '1'; });
+        })();
+
+        // 6. WORK SECTION — PINNED HORIZONTAL SCROLL (desktop only)
+        (function() {
+            const mq = window.matchMedia('(pointer: fine) and (min-width: 769px) and (prefers-reduced-motion: no-preference)');
+
+            const pin   = document.getElementById('work-pin');
+            const track = document.getElementById('work-track');
+            const panel = pin ? pin.querySelector('.work-panel') : null;
+            const inner = pin ? pin.querySelector('.work-panel-inner') : null;
+            const bar   = document.getElementById('work-progress-bar');
+            if (!pin || !track || !panel || !inner) return;
+
+            let maxScroll = 0;   // px the track must travel horizontally
+            let ticking = false;
+            let active = false;
+
+            function measure() {
+                const cs = getComputedStyle(inner);
+                const padX = (parseFloat(cs.paddingLeft) || 0) + (parseFloat(cs.paddingRight) || 0);
+                const contentWidth = inner.clientWidth - padX;
+                maxScroll = Math.max(0, track.scrollWidth - contentWidth);
+                // Tie vertical scroll distance to real horizontal travel (1.2x for a comfortable pace)
+                pin.style.height = (100 + (maxScroll / window.innerHeight) * 100 * 1.2) + 'vh';
+            }
+
+            function onScroll() {
+                if (!active || ticking) return;
+                ticking = true;
+                requestAnimationFrame(() => {
+                    const total = pin.offsetHeight - window.innerHeight;
+                    let p = total > 0 ? (-pin.getBoundingClientRect().top) / total : 0;
+                    p = Math.min(1, Math.max(0, p));
+                    track.style.transform = 'translate3d(' + (-p * maxScroll) + 'px,0,0)';
+                    if (bar) bar.style.width = (p * 100) + '%';
+                    ticking = false;
+                });
+            }
+
+            function enable() {
+                active = true;
+                measure();
+                track.style.transform = 'translate3d(0,0,0)';
+                window.addEventListener('scroll', onScroll, { passive: true });
+                onScroll();
+            }
+            function disable() {
+                active = false;
+                window.removeEventListener('scroll', onScroll);
+                pin.style.height = '';
+                track.style.transform = '';   // restore native snap layout
+                if (bar) bar.style.width = '0%';
+            }
+            function apply() { mq.matches ? enable() : disable(); }
+
+            // Recompute after icons/fonts settle (they shift card widths)
+            window.addEventListener('load', () => { if (active) { measure(); onScroll(); } });
+
+            // Resize / orientation change
+            let rt;
+            window.addEventListener('resize', () => {
+                clearTimeout(rt);
+                rt = setTimeout(() => { if (active) { measure(); onScroll(); } else { apply(); } }, 150);
+            });
+            mq.addEventListener('change', apply);
+
+            apply();
+            // One more measure shortly after init in case Lucide swaps <i> for <svg>
+            setTimeout(() => { if (active) { measure(); onScroll(); } }, 300);
         })();
     </script>
 

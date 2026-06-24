@@ -135,6 +135,76 @@
             opacity: 1;
             transform: translateY(0) translateX(0) scale(1);
         }
+
+        /* ===== Grain & Mortar–inspired orbital hero ===== */
+        .hero-orbit {
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 760px; height: 560px;
+            --orbit-scale: 1;
+            transform: translate(-50%, -50%) scale(var(--orbit-scale));
+            pointer-events: none;
+            z-index: 0;
+        }
+        .orbit-svg {
+            position: absolute; inset: 0;
+            width: 100%; height: 100%;
+            overflow: visible;
+        }
+        .orbit-path { animation: orbit-dash 45s linear infinite; }
+        @keyframes orbit-dash { to { stroke-dashoffset: -240; } }
+
+        .sticker {
+            position: absolute;
+            top: 0; left: 0;
+            offset-path: path("M 10,280 A 370,260 0 1 1 750,280 A 370,260 0 1 1 10,280");
+            offset-rotate: 0deg;
+            offset-distance: var(--start, 0%);
+            animation: orbit-travel 80s linear infinite;
+            animation-delay: var(--delay, 0s);
+            will-change: offset-distance;
+        }
+        @keyframes orbit-travel {
+            from { offset-distance: 0%; }
+            to   { offset-distance: 100%; }
+        }
+
+        .sticker-tile {
+            pointer-events: auto;
+            display: flex; align-items: center; justify-content: center;
+            width: 52px; height: 52px;
+            border-radius: 16px;
+            border: 1px solid rgba(96,82,78,0.08);
+            box-shadow: 0 8px 20px -8px rgba(31,26,23,0.28);
+            transform: rotate(-6deg);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .sticker:nth-child(even) .sticker-tile { transform: rotate(7deg); }
+        .sticker-tile:hover {
+            transform: scale(1.18) rotate(0deg);
+            box-shadow: 0 16px 30px -10px rgba(31,26,23,0.4);
+        }
+        .sticker-tile > svg,
+        .sticker-tile i { width: 22px; height: 22px; }
+        .tile-emoji { font-size: 24px; line-height: 1; }
+        .tile-chip { font-size: 12px; font-weight: 800; letter-spacing: 0.01em; }
+
+        .tile-white { background:#ffffff; }
+        .tile-cream { background:#F5ECE3; }
+        .tile-sky { background:#bae6fd; border-color:#7dd3fc; }
+        .tile-amber { background:#fde68a; border-color:#fcd34d; }
+        .tile-emerald { background:#d1fae5; border-color:#6ee7b7; }
+        .tile-terra-soft { background:#FAF0ED; color:#C1583A; }
+        .tile-terra { background:#C1583A; color:#FDFBF7; }
+        .tile-dark { background:#1F1A17; color:#ffffff; }
+
+        @media (max-width: 1024px) { .hero-orbit { --orbit-scale: 0.82; } }
+        @media (max-width: 768px)  { .hero-orbit { --orbit-scale: 0.66; } }
+        @media (max-width: 480px)  { .hero-orbit { --orbit-scale: 0.5; } }
+
+        @media (prefers-reduced-motion: reduce) {
+            .sticker, .orbit-path { animation: none; }
+        }
     </style>
 </head>
 <body class="bg-cream text-charcoal font-sans relative overflow-x-hidden selection:bg-terracotta selection:text-white">
@@ -220,31 +290,74 @@
     <!-- Main Entry Container -->
     <main>
 
-        <!-- 1. HERO SECTION -->
-        <section id="hero" class="relative pt-12 pb-24 md:pt-20 md:pb-36 px-6 overflow-hidden max-w-7xl mx-auto">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-                
-                <!-- Main Typography Heading & Info -->
-                <div class="lg:col-span-7 flex flex-col space-y-8 z-10">
-                    <div class="space-y-4 reveal reveal-up">
-                        <h1 class="text-5xl sm:text-6xl xl:text-7.5xl font-extrabold tracking-tight text-charcoal leading-none">
-                            Hi, I am <br/>
-                            <span class="text-terracotta relative inline-block">
-                                Shivam Sharma
-                                <!-- Interactive custom underline vector -->
-                                <svg class="absolute -bottom-2 left-0 w-full h-3 text-terracotta/40" viewBox="0 0 100 10" preserveAspectRatio="none">
-                                    <path d="M0,7 C30,2 70,2 100,7" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round"/>
-                                </svg>
+        <!-- 1. HERO SECTION (Grain & Mortar–inspired orbital ring) -->
+        <section id="hero" class="relative px-6 pt-16 pb-24 md:pt-24 md:pb-32 overflow-hidden">
+            <div class="hero-inner relative max-w-3xl mx-auto flex flex-col items-center justify-center text-center min-h-[480px] md:min-h-[560px]">
+
+                <!-- Orbital sticker ring (decorative — stickers drift along the dashed line) -->
+                <div class="hero-orbit" aria-hidden="true">
+                    <svg class="orbit-svg" viewBox="0 0 760 560" preserveAspectRatio="xMidYMid meet">
+                        <path class="orbit-path" d="M 10,280 A 370,260 0 1 1 750,280 A 370,260 0 1 1 10,280"
+                              fill="none" stroke="#C1583A" stroke-opacity="0.22" stroke-width="2"
+                              stroke-dasharray="1.5 14" stroke-linecap="round"/>
+                    </svg>
+
+                    <div class="sticker" style="--start:0%; --delay:0s;">
+                        <div class="sticker-tile tile-white"><span class="tile-chip text-terracotta">4.2x ROI</span></div>
+                    </div>
+                    <div class="sticker" style="--start:11.11%; --delay:-8.89s;">
+                        <div class="sticker-tile tile-sky"><span class="tile-emoji">🎯</span></div>
+                    </div>
+                    <div class="sticker" style="--start:22.22%; --delay:-17.78s;">
+                        <div class="sticker-tile tile-terra-soft"><i data-lucide="line-chart"></i></div>
+                    </div>
+                    <div class="sticker" style="--start:33.33%; --delay:-26.67s;">
+                        <div class="sticker-tile tile-amber"><span class="tile-emoji">🎓</span></div>
+                    </div>
+                    <div class="sticker" style="--start:44.44%; --delay:-35.56s;">
+                        <div class="sticker-tile tile-dark"><span class="tile-chip text-cyan-300">96.8%</span></div>
+                    </div>
+                    <div class="sticker" style="--start:55.56%; --delay:-44.44s;">
+                        <div class="sticker-tile tile-dark"><i data-lucide="cpu" class="text-terracotta"></i></div>
+                    </div>
+                    <div class="sticker" style="--start:66.67%; --delay:-53.33s;">
+                        <div class="sticker-tile tile-terra">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12,2L14.7,8.3L21,11L14.7,13.7L12,20L9.3,13.7L3,11L9.3,8.3L12,2Z"/></svg>
+                        </div>
+                    </div>
+                    <div class="sticker" style="--start:77.78%; --delay:-62.22s;">
+                        <div class="sticker-tile tile-emerald"><span class="tile-chip text-emerald-700">+42%</span></div>
+                    </div>
+                    <div class="sticker" style="--start:88.89%; --delay:-71.11s;">
+                        <div class="sticker-tile tile-cream"><i data-lucide="briefcase" class="text-terracotta"></i></div>
+                    </div>
+                </div>
+
+                <!-- Hero content (kept intact) -->
+                <div class="relative z-10 flex flex-col items-center space-y-7">
+                    <div class="space-y-3 reveal reveal-up">
+                        <p class="text-[11px] sm:text-xs uppercase tracking-[0.3em] text-terracotta font-extrabold">Strategy · Marketing · AI</p>
+                        <h1 class="font-serif font-semibold tracking-tight text-charcoal leading-[0.92]">
+                            <span class="block text-xl sm:text-2xl font-sans font-bold text-sand mb-2 tracking-normal">Hi, I am</span>
+                            <span class="block text-6xl sm:text-7xl xl:text-8xl">
+                                Shivam
+                                <span class="text-terracotta italic relative inline-block">
+                                    Sharma
+                                    <!-- Interactive custom underline vector -->
+                                    <svg class="absolute -bottom-2 left-0 w-full h-3 text-terracotta/40" viewBox="0 0 100 10" preserveAspectRatio="none">
+                                        <path d="M0,7 C30,2 70,2 100,7" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round"/>
+                                    </svg>
+                                </span>
                             </span>
                         </h1>
                     </div>
-                    
-                    <p class="text-xl sm:text-2xl font-serif text-sand leading-relaxed max-w-xl italic reveal reveal-up" style="transition-delay: 150ms;">
-                        &quot;Strategy-first. Digitally fluent. <br class="hidden sm:inline" /> I make brands work smarter.&quot;
+
+                    <p class="text-lg sm:text-2xl font-serif text-sand leading-relaxed max-w-xl italic reveal reveal-up" style="transition-delay: 150ms;">
+                        "Strategy-first. Digitally fluent. I make brands work smarter."
                     </p>
 
                     <!-- Profile Roles Badges (Row) -->
-                    <div class="flex flex-wrap gap-2.5 pt-2 reveal reveal-up" style="transition-delay: 300ms;">
+                    <div class="flex flex-wrap justify-center gap-2.5 pt-1 reveal reveal-up" style="transition-delay: 300ms;">
                         <span class="px-3 py-1 bg-cream-darker text-xs font-semibold text-charcoal rounded-md border border-sand/10 shadow-sm flex items-center gap-1.5">
                             <i data-lucide="briefcase" class="w-3.5 h-3.5 text-terracotta"></i> Management Consulting Intern
                         </span>
@@ -257,7 +370,7 @@
                     </div>
 
                     <!-- Call to Actions -->
-                    <div class="flex flex-wrap gap-4 pt-4 reveal reveal-up" style="transition-delay: 450ms;">
+                    <div class="flex flex-wrap justify-center gap-4 pt-3 reveal reveal-up" style="transition-delay: 450ms;">
                         <a href="#work" class="px-7 py-4 bg-terracotta text-white hover:bg-terracotta-dark text-sm font-bold tracking-wider uppercase rounded-full shadow-lg hover:shadow-xl transition-all inline-flex items-center gap-2 group">
                             Explore My Work
                             <i data-lucide="arrow-down-right" class="w-4 h-4 group-hover:translate-y-0.5 group-hover:-translate-x-0.5 transition-transform"></i>
@@ -267,77 +380,6 @@
                         </a>
                     </div>
                 </div>
-
-                <!-- Collage / Hero Floating Card Gallery -->
-                <div class="lg:col-span-5 relative h-[480px] sm:h-[540px] flex items-center justify-center mt-12 lg:mt-0 reveal reveal-scale" style="transition-delay: 200ms;">
-                    
-                    <!-- Base shadow/blob decorative background -->
-                    <div class="absolute w-72 h-72 bg-terracotta/5 rounded-full filter blur-3xl -top-10 left-10"></div>
-                    <div class="absolute w-72 h-72 bg-yellow-400/5 rounded-full filter blur-3xl -bottom-10 right-10"></div>
-
-                    <!-- Card 1: Strategy Visualiser (Large center card) -->
-                    <div class="absolute w-56 sm:w-64 bg-white p-5 rounded-3xl shadow-xl border border-sand/5 transform -rotate-3 z-10 hover:-translate-y-2 hover:rotate-0 transition-all duration-300 animate-float">
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="text-[10px] bg-terracotta-soft text-terracotta font-extrabold tracking-widest uppercase px-2.5 py-1 rounded-full">STRATEGY</span>
-                            <span class="text-xs text-sand font-medium">SH-01</span>
-                        </div>
-                        <h4 class="font-serif font-bold text-lg text-charcoal leading-snug mb-3">Maximising ROI via predictive pipeline models.</h4>
-                        <div class="space-y-2">
-                            <div class="flex items-center gap-2">
-                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                                <span class="text-[11px] text-sand">Operational metrics upgraded +42%</span>
-                            </div>
-                            <div class="w-full bg-cream-darker h-1.5 rounded-full overflow-hidden">
-                                <div class="bg-terracotta h-full rounded-full" style="width: 82%"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 2: Playful Rounded Badge (Masters student badge) -->
-                    <div class="absolute top-8 right-6 w-36 h-36 rounded-full bg-amber-100 border border-amber-300 p-4 flex flex-col items-center justify-center text-center shadow-lg transform rotate-12 hover:-rotate-12 transition-transform duration-300 z-20 animate-float-delayed">
-                        <div class="relative w-full h-full flex items-center justify-center">
-                            <!-- Spinning SVG Text track -->
-                            <svg class="absolute w-full h-full animate-spin-slow" viewBox="0 0 100 100">
-                                <defs>
-                                    <path id="circlePath" d="M 50, 50 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" />
-                                </defs>
-                                <text font-size="7.5" font-weight="900" letter-spacing="2" fill="#1F1A17">
-                                    <textPath href="#circlePath">DIGITAL MARKETING MASTERS •</textPath>
-                                </text>
-                            </svg>
-                            <span class="text-2xl">🎓</span>
-                        </div>
-                    </div>
-
-                    <!-- Card 3: Machine Learning Model Card (Left background) -->
-                    <div class="absolute bottom-6 left-2 w-48 bg-[#1F1A17] text-white p-4.5 rounded-2.5xl shadow-2xl transform -rotate-6 z-0 hover:-translate-y-2 hover:-rotate-3 transition-all duration-300">
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
-                            <span class="text-[10px] text-cyan-300 tracking-wider font-mono font-bold">MODEL_TRAINED</span>
-                        </div>
-                        <h5 class="text-xs font-mono mb-2 text-slate-300">> Neural network accuracy: 96.8%</h5>
-                        <div class="flex justify-between items-end">
-                            <span class="text-xs font-serif italic text-white/70">Shivam Sharma</span>
-                            <i data-lucide="cpu" class="w-6 h-6 text-terracotta"></i>
-                        </div>
-                    </div>
-
-                    <!-- Floating decorative elements inspired by Gusta -->
-                    <div class="absolute top-1/2 left-4 w-10 h-10 bg-sky-200 border border-sky-400 rounded-full flex items-center justify-center transform -translate-y-1/2 -rotate-12 shadow-md animate-bounce z-10">
-                        <span class="text-lg">🎯</span>
-                    </div>
-
-                    <!-- Sparkle Sticker -->
-                    <div class="absolute bottom-16 right-4 flex flex-col items-center gap-1 z-20">
-                        <div class="bg-terracotta text-cream p-2.5 rounded-2xl shadow-lg transform rotate-6 hover:scale-110 transition-transform">
-                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12,2L14.7,8.3L21,11L14.7,13.7L12,20L9.3,13.7L3,11L9.3,8.3L12,2Z"/>
-                            </svg>
-                        </div>
-                        <span class="text-[9px] uppercase tracking-widest font-extrabold text-sand">STORY-FIRST</span>
-                    </div>
-
-                </div>
             </div>
         </section>
 
@@ -346,7 +388,7 @@
             <div class="max-w-4xl mx-auto text-center space-y-8 reveal reveal-scale">
                 <p class="text-xs uppercase tracking-widest text-terracotta font-extrabold">My Vision</p>
                 <h3 class="text-3xl sm:text-4xl md:text-5xl font-serif text-charcoal leading-tight">
-                    &quot;I build high-growth connections between structured corporate strategy, digital audience mapping, and automated deep learning execution.&quot;
+                    "I build high-growth connections between structured corporate strategy, digital audience mapping, and automated deep learning execution."
                 </h3>
                 <div class="w-16 h-1 bg-terracotta mx-auto rounded-full"></div>
             </div>
@@ -505,7 +547,7 @@
                     <!-- Quote representation widget -->
                     <div class="p-6 bg-cream-darker rounded-3xl border border-sand/10 space-y-4 relative">
                         <p class="text-sm italic text-sand">
-                            &quot;A broad strategic background allows me to communicate effortlessly with stakeholders, while my technical skills empower me to actually write the execution files myself.&quot;
+                            "A broad strategic background allows me to communicate effortlessly with stakeholders, while my technical skills empower me to actually write the execution files myself."
                         </p>
                         <div class="flex items-center gap-3">
                             <span class="w-8 h-8 rounded-full bg-terracotta text-white flex items-center justify-center text-xs font-bold font-serif italic">S</span>

@@ -58,36 +58,24 @@
             * { cursor: none !important; }
         }
 
-        #cursor-crosshair {
+        #cursor-dot {
             display: none;
             position: fixed;
             top: 0; left: 0;
-            width: 28px; height: 28px;
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            background: #ffffff;
             pointer-events: none;
             z-index: 9999;
-            transform: translate(-50%, -50%);
-            transition: width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
+            transform: translate(-50%, -50%) scale(1);
+            transition: width 0.22s cubic-bezier(0.16,1,0.3,1),
+                        height 0.22s cubic-bezier(0.16,1,0.3,1),
+                        opacity 0.2s ease, transform 0.1s ease;
             mix-blend-mode: difference;
+            will-change: transform, width, height;
         }
-        #cursor-crosshair .ch-line-h,
-        #cursor-crosshair .ch-line-v {
-            position: absolute;
-            background: #ffffff;
-            border-radius: 2px;
-        }
-        #cursor-crosshair .ch-line-h {
-            width: 100%; height: 1.5px;
-            top: 50%; left: 0;
-            transform: translateY(-50%);
-        }
-        #cursor-crosshair .ch-line-v {
-            height: 100%; width: 1.5px;
-            left: 50%; top: 0;
-            transform: translateX(-50%);
-        }
-        #cursor-crosshair.is-hovering {
-            width: 40px; height: 40px;
-        }
+        #cursor-dot.is-hovering { width: 22px; height: 22px; }
+        #cursor-dot.is-down { transform: translate(-50%, -50%) scale(0.7); }
 
         /* Custom scrollbar matching aesthetic */
         ::-webkit-scrollbar {
@@ -209,11 +197,8 @@
 </head>
 <body class="bg-cream text-charcoal font-sans relative overflow-x-hidden selection:bg-terracotta selection:text-white">
 
-    <!-- Custom crosshair cursor -->
-    <div id="cursor-crosshair">
-        <div class="ch-line-h"></div>
-        <div class="ch-line-v"></div>
-    </div>
+    <!-- Custom minimal dot cursor -->
+    <div id="cursor-dot"></div>
 
     <!-- Subtle paper noise layer -->
     <div class="fixed inset-0 pointer-events-none grain z-40"></div>
@@ -306,13 +291,13 @@
                         <div class="sticker-tile tile-white"><span class="tile-chip text-terracotta">4.2x ROI</span></div>
                     </div>
                     <div class="sticker" style="--start:11.11%; --delay:-8.89s;">
-                        <div class="sticker-tile tile-sky"><span class="tile-emoji">&#127919;</span></div>
+                        <div class="sticker-tile tile-sky"><span class="tile-emoji">🎯</span></div>
                     </div>
                     <div class="sticker" style="--start:22.22%; --delay:-17.78s;">
                         <div class="sticker-tile tile-terra-soft"><i data-lucide="line-chart"></i></div>
                     </div>
                     <div class="sticker" style="--start:33.33%; --delay:-26.67s;">
-                        <div class="sticker-tile tile-amber"><span class="tile-emoji">&#127891;</span></div>
+                        <div class="sticker-tile tile-amber"><span class="tile-emoji">🎓</span></div>
                     </div>
                     <div class="sticker" style="--start:44.44%; --delay:-35.56s;">
                         <div class="sticker-tile tile-dark"><span class="tile-chip text-cyan-300">96.8%</span></div>
@@ -353,7 +338,7 @@
                     </div>
 
                     <p class="text-lg sm:text-2xl font-serif text-sand leading-relaxed max-w-xl italic reveal reveal-up" style="transition-delay: 150ms;">
-                        &ldquo;Strategy-first. Digitally fluent. I make brands work smarter.&rdquo;
+                        "Strategy-first. Digitally fluent. I make brands work smarter."
                     </p>
 
                     <!-- Profile Roles Badges (Row) -->
@@ -388,7 +373,7 @@
             <div class="max-w-4xl mx-auto text-center space-y-8 reveal reveal-scale">
                 <p class="text-xs uppercase tracking-widest text-terracotta font-extrabold">My Vision</p>
                 <h3 class="text-3xl sm:text-4xl md:text-5xl font-serif text-charcoal leading-tight">
-                    &ldquo;I build high-growth connections between structured corporate strategy, digital audience mapping, and automated deep learning execution.&rdquo;
+                    "I build high-growth connections between structured corporate strategy, digital audience mapping, and automated deep learning execution."
                 </h3>
                 <div class="w-16 h-1 bg-terracotta mx-auto rounded-full"></div>
             </div>
@@ -499,10 +484,10 @@
                             <div class="relative bg-neutral-800 w-full rounded-2xl border border-neutral-700 p-4 font-mono text-[9px] text-emerald-400 space-y-2 transform translate-y-4 group-hover:translate-y-2 transition-all duration-300">
                                 <div class="flex justify-between border-b border-neutral-700 pb-1.5">
                                     <span>[SYSTEM_TRAINING]</span>
-                                    <span class="animate-pulse">&#9679; LIVE</span>
+                                    <span class="animate-pulse">● LIVE</span>
                                 </div>
-                                <p class="text-neutral-400">&gt; epochs = 200, batch_size = 32</p>
-                                <p class="text-yellow-300">&gt; test_loss: 0.0242 | accuracy: 0.968</p>
+                                <p class="text-neutral-400">> epochs = 200, batch_size = 32</p>
+                                <p class="text-yellow-300">> test_loss: 0.0242 | accuracy: 0.968</p>
                             </div>
                         </div>
                         
@@ -547,7 +532,7 @@
                     <!-- Quote representation widget -->
                     <div class="p-6 bg-cream-darker rounded-3xl border border-sand/10 space-y-4 relative">
                         <p class="text-sm italic text-sand">
-                            &ldquo;A broad strategic background allows me to communicate effortlessly with stakeholders, while my technical skills empower me to actually write the execution files myself.&rdquo;
+                            "A broad strategic background allows me to communicate effortlessly with stakeholders, while my technical skills empower me to actually write the execution files myself."
                         </p>
                         <div class="flex items-center gap-3">
                             <span class="w-8 h-8 rounded-full bg-terracotta text-white flex items-center justify-center text-xs font-bold font-serif italic">S</span>
@@ -1061,25 +1046,27 @@
             });
         }
 
-        // 5. CUSTOM CROSSHAIR CURSOR
+        // 5. CUSTOM MINIMAL DOT CURSOR
         (function() {
             if (!window.matchMedia('(pointer: fine)').matches) return;
 
-            const crosshair = document.getElementById('cursor-crosshair');
-            crosshair.style.display = 'block';
+            const dot = document.getElementById('cursor-dot');
+            dot.style.display = 'block';
             const interactiveSelectors = 'a, button, [onclick], input, textarea, select, label, [role="button"]';
 
             document.addEventListener('mousemove', e => {
-                crosshair.style.left = e.clientX + 'px';
-                crosshair.style.top  = e.clientY + 'px';
+                dot.style.left = e.clientX + 'px';
+                dot.style.top  = e.clientY + 'px';
 
                 const hovered = document.elementFromPoint(e.clientX, e.clientY);
                 const isInteractive = hovered && hovered.closest(interactiveSelectors);
-                crosshair.classList.toggle('is-hovering', !!isInteractive);
+                dot.classList.toggle('is-hovering', !!isInteractive);
             });
 
-            document.addEventListener('mouseleave', () => { crosshair.style.opacity = '0'; });
-            document.addEventListener('mouseenter', () => { crosshair.style.opacity = '1'; });
+            document.addEventListener('mousedown', () => dot.classList.add('is-down'));
+            document.addEventListener('mouseup',   () => dot.classList.remove('is-down'));
+            document.addEventListener('mouseleave', () => { dot.style.opacity = '0'; dot.classList.remove('is-down'); });
+            document.addEventListener('mouseenter', () => { dot.style.opacity = '1'; });
         })();
     </script>
 

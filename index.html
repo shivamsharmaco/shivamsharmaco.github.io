@@ -1,1074 +1,222 @@
 <!DOCTYPE html>
-<html lang="en-GB" class="scroll-smooth">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shivam Sharma: Strategy, Digital Marketing & AI/ML Portfolio</title>
-    <link rel="apple-touch-icon" href="/favicon.png?v=1"> 
-    <link rel="icon" type="image/png" href="/favicon.png">
-    <!-- Tailwind CSS Play CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Plus Jakarta Sans & Fraunces -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-                        serif: ['"Fraunces"', 'serif'],
-                    },
-                    colors: {
-                        terracotta: {
-                            DEFAULT: '#C1583A',
-                            light: '#D37559',
-                            dark: '#A34327',
-                            soft: '#FAF0ED',
-                        },
-                        cream: {
-                            DEFAULT: '#FDFBF7',
-                            darker: '#F5ECE3',
-                            card: '#FCF8F2',
-                        },
-                        charcoal: '#1F1A17',
-                        sand: '#60524E',
-                    },
-                    animation: {
-                        'spin-slow': 'spin 12s linear infinite',
-                        'float': 'float 6s ease-in-out infinite',
-                        'float-delayed': 'float 6s ease-in-out infinite 3s',
-                    },
-                    keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
-                            '50%': { transform: 'translateY(-10px) rotate(1deg)' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        /* Custom crosshair cursor — desktop (fine pointer) only */
-        @media (pointer: fine) {
-            * { cursor: none !important; }
-        }
-
-        #cursor-dot {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 10px; height: 10px;
-            border-radius: 50%;
-            background: #ffffff;
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%, -50%) scale(1);
-            transition: width 0.22s cubic-bezier(0.16,1,0.3,1),
-                        height 0.22s cubic-bezier(0.16,1,0.3,1),
-                        opacity 0.2s ease, transform 0.1s ease;
-            mix-blend-mode: difference;
-            will-change: transform, width, height;
-        }
-        #cursor-dot.is-hovering { width: 22px; height: 22px; }
-        #cursor-dot.is-down { transform: translate(-50%, -50%) scale(0.7); }
-
-        /* Custom scrollbar matching aesthetic */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #FDFBF7;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #C1583A;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #A34327;
-        }
-
-        /* Subtle Noise Grain Overlay to match premium portfolio aesthetics */
-        .grain {
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
-        }
-
-        /* Rich, Smooth Scroll Reveal Transitions */
-        .reveal {
-            opacity: 0;
-            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: transform, opacity;
-        }
-        .reveal-up {
-            transform: translateY(40px);
-        }
-        .reveal-down {
-            transform: translateY(-40px);
-        }
-        .reveal-left {
-            transform: translateX(40px);
-        }
-        .reveal-right {
-            transform: translateX(-40px);
-        }
-        .reveal-scale {
-            transform: scale(0.95);
-        }
-        /* Active trigger states */
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0) translateX(0) scale(1);
-        }
-
-        /* ===== Grain & Mortar–inspired orbital hero ===== */
-        .hero-orbit {
-            position: absolute;
-            top: 50%; left: 50%;
-            width: 760px; height: 560px;
-            --orbit-scale: 1;
-            transform: translate(-50%, -50%) scale(var(--orbit-scale));
-            pointer-events: none;
-            z-index: 0;
-            opacity: 0.75;
-        }
-        .orbit-svg {
-            position: absolute; inset: 0;
-            width: 100%; height: 100%;
-            overflow: visible;
-        }
-        .orbit-path { animation: orbit-dash 45s linear infinite; }
-        @keyframes orbit-dash { to { stroke-dashoffset: -240; } }
-
-        .sticker {
-            position: absolute;
-            top: 0; left: 0;
-            offset-path: path("M 10,280 A 370,260 0 1 1 750,280 A 370,260 0 1 1 10,280");
-            offset-rotate: 0deg;
-            offset-distance: var(--start, 0%);
-            animation: orbit-travel 80s linear infinite;
-            animation-delay: var(--delay, 0s);
-            will-change: offset-distance;
-        }
-        @keyframes orbit-travel {
-            from { offset-distance: 0%; }
-            to   { offset-distance: 100%; }
-        }
-
-        .sticker-tile {
-            pointer-events: auto;
-            display: flex; align-items: center; justify-content: center;
-            width: 52px; height: 52px;
-            border-radius: 16px;
-            border: 1px solid rgba(96,82,78,0.08);
-            box-shadow: 0 8px 20px -8px rgba(31,26,23,0.28);
-            transform: rotate(-6deg);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .sticker:nth-child(even) .sticker-tile { transform: rotate(7deg); }
-        .sticker-tile:hover {
-            transform: scale(1.18) rotate(0deg);
-            box-shadow: 0 16px 30px -10px rgba(31,26,23,0.4);
-        }
-        .sticker-tile > svg,
-        .sticker-tile i { width: 22px; height: 22px; }
-        .tile-emoji { font-size: 24px; line-height: 1; }
-        .tile-chip { font-size: 12px; font-weight: 800; letter-spacing: 0.01em; }
-
-        .tile-white { background:#ffffff; }
-        .tile-cream { background:#F5ECE3; }
-        .tile-sky { background:#bae6fd; border-color:#7dd3fc; }
-        .tile-amber { background:#fde68a; border-color:#fcd34d; }
-        .tile-emerald { background:#d1fae5; border-color:#6ee7b7; }
-        .tile-terra-soft { background:#FAF0ED; color:#C1583A; }
-        .tile-terra { background:#C1583A; color:#FDFBF7; }
-        .tile-dark { background:#1F1A17; color:#ffffff; }
-
-        @media (max-width: 1024px) { .hero-orbit { --orbit-scale: 0.82; } }
-        @media (max-width: 768px)  { .hero-orbit { display: none; } }
-
-        @media (prefers-reduced-motion: reduce) {
-            .sticker, .orbit-path { animation: none; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shivam Sharma — Strategy, Marketing &amp; Machine Learning</title>
+  <meta name="description" content="Shivam Sharma is a strategy-first consultant and marketer with hands-on AI/ML skills. Management consulting, digital growth and predictive modelling — from the boardroom to the build.">
+  <meta property="og:title" content="Shivam Sharma — Strategy, Marketing &amp; Machine Learning">
+  <meta property="og:description" content="Strategy-first. Digitally fluent. I make brands work smarter.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://shivamsharma.co">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='6'%20fill='%231a1918'/%3E%3Ctext%20x='16'%20y='23'%20font-family='Georgia,serif'%20font-size='20'%20fill='%23f0efec'%20text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="bg-cream text-charcoal font-sans relative overflow-x-hidden selection:bg-terracotta selection:text-white">
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-    <!-- Custom minimal dot cursor -->
-    <div id="cursor-dot"></div>
+  <header class="masthead">
+    <h1 class="wordmark" aria-label="Shivam Sharma">shivam&nbsp;sharma</h1>
+    <nav class="site-nav" aria-label="Primary">
+      <ul>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a class="nav-cta" href="#contact">Work with me<span aria-hidden="true"> →</span></a></li>
+      </ul>
+    </nav>
+  </header>
 
-    <!-- Subtle paper noise layer -->
-    <div class="fixed inset-0 pointer-events-none grain z-40"></div>
+  <main id="main">
 
-    <!-- Preloader Overlay Screen with Counter and Track bar (Optimised Pacing & Ultra Minimalist) -->
-    <div id="loader" class="fixed inset-0 bg-cream z-50 flex flex-col justify-center items-center p-8 sm:p-12 transition-transform duration-1000 ease-[cubic-bezier(0.85,0,0.15,1)]">
-        <div class="w-full max-w-sm space-y-6 text-center">
-            <!-- Paced Dynamic Percentage Counter -->
-            <div id="loader-percentage" class="text-7xl sm:text-9xl font-serif italic text-terracotta leading-none font-bold tracking-tight">00%</div>
-            <!-- Dynamic Thin Progress Bar -->
-            <div class="w-full bg-cream-darker h-1 rounded-full overflow-hidden">
-                <div id="loader-bar" class="bg-terracotta h-full w-0 transition-all duration-150 ease-out"></div>
-            </div>
+    <!-- Hero -->
+    <section class="hero" aria-labelledby="hero-heading">
+      <p class="kicker">Consultant · Marketer · Developer</p>
+      <h2 id="hero-heading" class="hero-statement">
+        Strategy&#8209;first. Digitally fluent.<br>
+        I make brands work <em>smarter.</em>
+      </h2>
+      <p class="hero-sub">
+        Management consulting intern, digital marketing master's student
+        and AI/ML learner. One person, the whole pipeline.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-dark" href="#work">Explore my work</a>
+        <a class="btn btn-accent" href="#contact">Get in touch<span aria-hidden="true"> →</span></a>
+      </div>
+    </section>
+
+    <!-- Vision -->
+    <section class="vision" aria-labelledby="vision-heading">
+      <h2 class="visually-hidden" id="vision-heading">Vision</h2>
+      <p class="vision-statement">
+        I build high&#8209;growth connections between structured corporate strategy,
+        digital audience mapping and automated <em>deep learning</em> execution.
+      </p>
+      <p class="vision-note">
+        A broad strategic background lets me communicate effortlessly with stakeholders,
+        while my technical skills mean I can write the execution files myself.
+      </p>
+    </section>
+
+    <!-- Work index -->
+    <section class="work" id="work" aria-labelledby="work-heading">
+      <div class="section-head">
+        <h2 id="work-heading"><span class="dot" aria-hidden="true"></span>Selected work</h2>
+        <p>Three case studies, three disciplines.</p>
+      </div>
+
+      <ul class="work-index">
+        <li><a href="#case-gtm">Enterprise Go&#8209;To&#8209;Market<span class="index-tag">Consulting</span></a></li>
+        <li><a href="#case-funnel">Consumer Funnel Build<span class="index-tag">Marketing</span></a></li>
+        <li><a href="#case-ml">Predictive Scoring Pipelines<span class="index-tag">AI / ML</span></a></li>
+      </ul>
+
+      <!-- Case study 1 -->
+      <article class="case" id="case-gtm" aria-labelledby="case-gtm-title">
+        <div class="case-text">
+          <p class="case-eyebrow">01 — Consulting Strategy &amp; Ops</p>
+          <h3 id="case-gtm-title">Enterprise go&#8209;to&#8209;market &amp; cycle optimisation.</h3>
+          <p>
+            Operational modelling for distribution bottlenecks. I mapped the full
+            stakeholder cycle, found where deals stalled, and rebuilt the handover
+            logic so the pipeline moved on schedule instead of on chance.
+          </p>
         </div>
-    </div>
-
-    <!-- Header Navigation -->
-    <header class="sticky top-0 w-full z-40 transition-all duration-300 border-b border-transparent bg-cream/85 backdrop-blur-md">
-        <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
-            <!-- Brand Mark / Logo -->
-            <a href="#" class="flex items-center gap-3 group text-lg font-bold select-none cursor-pointer">
-                <span class="w-8 h-8 bg-terracotta text-cream flex items-center justify-center rounded-full font-serif font-semibold text-lg italic tracking-wider shadow-sm group-hover:scale-105 transition-transform">S</span>
-                <span class="tracking-tight hover:text-terracotta transition-colors">shivam.sharma</span>
-            </a>
-
-            <!-- Navigation Links -->
-            <nav class="hidden md:flex items-center gap-10 text-sm font-semibold text-sand">
-                <a href="#work" class="hover:text-terracotta transition-colors relative py-1 group">
-                    Work
-                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-terracotta transition-all group-hover:w-full"></span>
-                </a>
-                <a href="#skills" class="hover:text-terracotta transition-colors relative py-1 group">
-                    Skills
-                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-terracotta transition-all group-hover:w-full"></span>
-                </a>
-                <a href="#contact" class="hover:text-terracotta transition-colors relative py-1 group">
-                    Contact
-                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-terracotta transition-all group-hover:w-full"></span>
-                </a>
-            </nav>
-
-            <!-- Action Trigger / CTAs -->
-            <div class="flex items-center gap-4">
-                <a href="#contact" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 bg-[#1F1A17] text-white hover:bg-terracotta text-xs font-bold tracking-wider uppercase rounded-full shadow-sm transition-all duration-300">
-                    Connect
-                    <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-                </a>
-
-                <!-- Mobile Menu Button with Custom Open Transition Background -->
-                <button id="mobile-menu-btn" class="md:hidden flex flex-col justify-center items-center w-9 h-9 border border-sand/20 bg-cream rounded-full transition-all duration-300 relative z-50" aria-label="Toggle menu">
-                    <span class="w-4 h-0.5 bg-charcoal mb-1 transition-transform duration-300" id="menu-line-1"></span>
-                    <span class="w-4 h-0.5 bg-charcoal transition-transform duration-300" id="menu-line-2"></span>
-                </button>
+        <div class="case-stats">
+          <p class="stats-label"><span class="dot" aria-hidden="true"></span>Measured outcome</p>
+          <div class="stat-row">
+            <div class="stat stat-accent">
+              <span class="stat-caption">Stakeholder pipeline</span>
+              <span class="stat-figure">+24%</span>
             </div>
+            <div class="stat stat-grey">
+              <span class="stat-caption">Scope</span>
+              <span class="stat-figure stat-figure-small">End&#8209;to&#8209;end</span>
+            </div>
+          </div>
         </div>
-    </header>
+      </article>
 
-    <!-- Mobile Drawer Menu -->
-    <div id="mobile-drawer" class="fixed inset-0 bg-cream z-30 flex flex-col justify-center items-center gap-8 -translate-y-full transition-transform duration-500 ease-in-out md:hidden px-6">
-        <a href="#work" class="mobile-nav-link text-3xl font-serif font-bold text-charcoal hover:text-terracotta" data-target="work">Work.</a>
-        <a href="#skills" class="mobile-nav-link text-3xl font-serif font-bold text-charcoal hover:text-terracotta" data-target="skills">Skills.</a>
-        <a href="#contact" class="mobile-nav-link text-3xl font-serif font-bold text-charcoal hover:text-terracotta" data-target="contact">Contact.</a>
-        <div class="h-[1px] w-24 bg-sand/20 my-2"></div>
-        <div class="flex gap-6 mt-4">
-            <a href="https://www.linkedin.com/in/shivamsharmaco/" target="_blank" class="text-sand hover:text-terracotta text-sm flex items-center gap-2">
-                <i data-lucide="linkedin" class="w-4 h-4"></i> LinkedIn
-            </a>
-            <a href="mailto:shivamsh4904@gmail.com" class="text-sand hover:text-terracotta text-sm flex items-center gap-2">
-                <i data-lucide="mail" class="w-4 h-4"></i> Email
-            </a>
+      <!-- Case study 2 -->
+      <article class="case case-flip" id="case-funnel" aria-labelledby="case-funnel-title">
+        <div class="case-text">
+          <p class="case-eyebrow">02 — Digital Marketing</p>
+          <h3 id="case-funnel-title">The hyper&#8209;targeted consumer funnel build.</h3>
+          <p>
+            Search engine and multi&#8209;touch campaigns for a direct&#8209;to&#8209;consumer
+            apparel brand. Audience mapping first, creative second, budget last,
+            and every euro tracked from impression to checkout.
+          </p>
         </div>
-    </div>
-
-    <!-- Main Entry Container -->
-    <main>
-
-        <!-- 1. HERO SECTION (Grain & Mortar–inspired orbital ring) -->
-        <section id="hero" class="relative px-6 pt-16 pb-24 md:pt-24 md:pb-32 overflow-hidden">
-            <div class="hero-inner relative max-w-3xl mx-auto flex flex-col items-center justify-center text-center min-h-[480px] md:min-h-[560px]">
-
-                <!-- Orbital sticker ring (decorative — stickers drift along the dashed line) -->
-                <div class="hero-orbit" aria-hidden="true">
-                    <svg class="orbit-svg" viewBox="0 0 760 560" preserveAspectRatio="xMidYMid meet">
-                        <path class="orbit-path" d="M 10,280 A 370,260 0 1 1 750,280 A 370,260 0 1 1 10,280"
-                              fill="none" stroke="#C1583A" stroke-opacity="0.22" stroke-width="2"
-                              stroke-dasharray="1.5 14" stroke-linecap="round"/>
-                    </svg>
-
-                    <div class="sticker" style="--start:0%; --delay:0s;">
-                        <div class="sticker-tile tile-white"><span class="tile-chip text-terracotta">4.2x ROI</span></div>
-                    </div>
-                    <div class="sticker" style="--start:11.11%; --delay:-8.89s;">
-                        <div class="sticker-tile tile-sky"><span class="tile-emoji">🎯</span></div>
-                    </div>
-                    <div class="sticker" style="--start:22.22%; --delay:-17.78s;">
-                        <div class="sticker-tile tile-terra-soft"><i data-lucide="line-chart"></i></div>
-                    </div>
-                    <div class="sticker" style="--start:33.33%; --delay:-26.67s;">
-                        <div class="sticker-tile tile-amber"><span class="tile-emoji">🎓</span></div>
-                    </div>
-                    <div class="sticker" style="--start:44.44%; --delay:-35.56s;">
-                        <div class="sticker-tile tile-dark"><span class="tile-chip text-cyan-300">96.8%</span></div>
-                    </div>
-                    <div class="sticker" style="--start:55.56%; --delay:-44.44s;">
-                        <div class="sticker-tile tile-dark"><i data-lucide="cpu" class="text-terracotta"></i></div>
-                    </div>
-                    <div class="sticker" style="--start:66.67%; --delay:-53.33s;">
-                        <div class="sticker-tile tile-terra">
-                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12,2L14.7,8.3L21,11L14.7,13.7L12,20L9.3,13.7L3,11L9.3,8.3L12,2Z"/></svg>
-                        </div>
-                    </div>
-                    <div class="sticker" style="--start:77.78%; --delay:-62.22s;">
-                        <div class="sticker-tile tile-emerald"><span class="tile-chip text-emerald-700">+42%</span></div>
-                    </div>
-                    <div class="sticker" style="--start:88.89%; --delay:-71.11s;">
-                        <div class="sticker-tile tile-cream"><i data-lucide="briefcase" class="text-terracotta"></i></div>
-                    </div>
-                </div>
-
-                <!-- Hero content (kept intact) -->
-                <div class="relative z-10 flex flex-col items-center space-y-7">
-                    <div class="space-y-3 reveal reveal-up">
-                        <p class="text-[11px] sm:text-xs uppercase tracking-[0.3em] text-terracotta font-extrabold">Strategy · Marketing · AI</p>
-                        <h1 class="font-serif font-semibold tracking-tight text-charcoal leading-[0.92]">
-                            <span class="block text-xl sm:text-2xl font-sans font-bold text-sand mb-2 tracking-normal">Hi, I am</span>
-                            <span class="block text-6xl sm:text-7xl xl:text-8xl">
-                                Shivam
-                                <span class="text-terracotta italic relative inline-block">
-                                    Sharma
-                                    <!-- Interactive custom underline vector -->
-                                    <svg class="absolute -bottom-2 left-0 w-full h-3 text-terracotta/40" viewBox="0 0 100 10" preserveAspectRatio="none">
-                                        <path d="M0,7 C30,2 70,2 100,7" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round"/>
-                                    </svg>
-                                </span>
-                            </span>
-                        </h1>
-                    </div>
-
-                    <p class="text-lg sm:text-2xl font-serif text-sand leading-relaxed max-w-xl italic reveal reveal-up" style="transition-delay: 150ms;">
-                        "Strategy-first. Digitally fluent. I make brands work smarter."
-                    </p>
-
-                    <!-- Profile Roles Badges (Row) -->
-                    <div class="flex flex-wrap justify-center gap-2.5 pt-1 reveal reveal-up" style="transition-delay: 300ms;">
-                        <span class="px-3 py-1 bg-cream-darker text-xs font-semibold text-charcoal rounded-md border border-sand/10 shadow-sm flex items-center gap-1.5">
-                            <i data-lucide="briefcase" class="w-3.5 h-3.5 text-terracotta"></i> Management Consulting Intern
-                        </span>
-                        <span class="px-3 py-1 bg-cream-darker text-xs font-semibold text-charcoal rounded-md border border-sand/10 shadow-sm flex items-center gap-1.5">
-                            <i data-lucide="graduation-cap" class="w-3.5 h-3.5 text-terracotta"></i> Digital Marketing Masters
-                        </span>
-                        <span class="px-3 py-1 bg-cream-darker text-xs font-semibold text-charcoal rounded-md border border-sand/10 shadow-sm flex items-center gap-1.5">
-                            <i data-lucide="cpu" class="w-3.5 h-3.5 text-terracotta"></i> AI/ML Learner
-                        </span>
-                    </div>
-
-                    <!-- Call to Actions -->
-                    <div class="flex flex-wrap justify-center gap-4 pt-3 reveal reveal-up" style="transition-delay: 450ms;">
-                        <a href="#work" class="px-7 py-4 bg-terracotta text-white hover:bg-terracotta-dark text-sm font-bold tracking-wider uppercase rounded-full shadow-lg hover:shadow-xl transition-all inline-flex items-center gap-2 group">
-                            Explore My Work
-                            <i data-lucide="arrow-down-right" class="w-4 h-4 group-hover:translate-y-0.5 group-hover:-translate-x-0.5 transition-transform"></i>
-                        </a>
-                        <a href="#skills" class="px-7 py-4 bg-cream-darker text-charcoal hover:bg-sand/10 text-sm font-bold tracking-wider uppercase rounded-full border border-sand/15 inline-flex items-center gap-2">
-                            Skills
-                        </a>
-                    </div>
-                </div>
+        <div class="case-stats">
+          <p class="stats-label"><span class="dot" aria-hidden="true"></span>Measured outcome</p>
+          <div class="stat-row">
+            <div class="stat stat-accent">
+              <span class="stat-caption">Verified return</span>
+              <span class="stat-figure">4.2&times;</span>
             </div>
-        </section>
-
-        <!-- Dynamic Manifesto Section with Big Editorial Impact -->
-        <section class="bg-cream-darker py-20 px-6 relative overflow-hidden">
-            <div class="max-w-4xl mx-auto text-center space-y-8 reveal reveal-scale">
-                <p class="text-xs uppercase tracking-widest text-terracotta font-extrabold">My Vision</p>
-                <h3 class="text-3xl sm:text-4xl md:text-5xl font-serif text-charcoal leading-tight">
-                    "I build high-growth connections between structured corporate strategy, digital audience mapping, and automated deep learning execution."
-                </h3>
-                <div class="w-16 h-1 bg-terracotta mx-auto rounded-full"></div>
+            <div class="stat stat-grey">
+              <span class="stat-caption">Channels</span>
+              <span class="stat-figure stat-figure-small">Multi&#8209;touch</span>
             </div>
-        </section>
-
-        <!-- 3. WORK SECTION -->
-        <section id="work" class="py-24 bg-cream-darker/50 px-6 scroll-mt-12">
-            <div class="max-w-7xl mx-auto space-y-16">
-                
-                <!-- Section Intro Heading -->
-                <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 reveal reveal-up">
-                    <div class="space-y-4">
-                        <span class="text-xs font-bold uppercase tracking-widest text-terracotta">Selected Case Studies</span>
-                        <h2 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-charcoal">
-                            My Practice &amp; Execution
-                        </h2>
-                    </div>
-                    <p class="text-sand text-lg max-w-md">
-                        A view into projects blending analytical strategy, precise growth marketing architectures, and custom programmatic models.
-                    </p>
-                </div>
-
-                <!-- 3 Case Study Cards Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    
-                    <!-- Card 1: Consulting -->
-                    <div class="bg-cream rounded-3xl border border-sand/10 overflow-hidden shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 flex flex-col h-full group reveal reveal-up" style="transition-delay: 100ms;">
-                        <!-- Card Header Graphic representing workflow -->
-                        <div class="h-48 bg-gradient-to-br from-terracotta-soft to-amber-100 flex items-center justify-center p-6 relative overflow-hidden border-b border-sand/5">
-                            <div class="absolute inset-0 bg-[radial-gradient(#C1583A_1px,transparent_1px)] [background-size:16px_16px] opacity-20"></div>
-                            <!-- Styled dashboard graphic represent stats -->
-                            <div class="relative bg-white w-full rounded-2xl shadow-lg border border-sand/5 p-4 transform translate-y-4 group-hover:translate-y-2 transition-all duration-300">
-                                <div class="flex items-center gap-1.5 mb-2">
-                                    <span class="w-2.5 h-2.5 bg-[#1F1A17] rounded-full"></span>
-                                    <span class="text-[9px] font-bold tracking-wider text-sand">STAKEHOLDER PIPELINE</span>
-                                </div>
-                                <div class="flex items-end gap-1.5 h-12">
-                                    <div class="bg-terracotta/20 w-full h-1/3 rounded-sm"></div>
-                                    <div class="bg-terracotta/40 w-full h-1/2 rounded-sm"></div>
-                                    <div class="bg-terracotta w-full h-3/4 rounded-sm"></div>
-                                    <div class="bg-[#1F1A17] w-full h-full rounded-sm flex items-center justify-center text-[8px] text-white font-bold font-mono">24%</div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Content -->
-                        <div class="p-6 sm:p-8 flex flex-col flex-grow space-y-4">
-                            <div class="flex justify-between items-center text-xs">
-                                <span class="px-2.5 py-1 bg-terracotta-soft text-terracotta font-extrabold rounded-full tracking-wider uppercase text-[10px]">Consulting</span>
-                                <span class="text-sand font-medium">Strategy &amp; Ops</span>
-                            </div>
-                            <h3 class="text-xl font-serif font-bold text-charcoal leading-snug group-hover:text-terracotta transition-colors">
-                                Enterprise Go-To-Market &amp; Cycle Optimisation
-                            </h3>
-                            <p class="text-sand text-sm leading-relaxed flex-grow">
-                                Re-engineered key pipeline cycles for regional commerce systems. Used operational modelling techniques to resolve distribution bottlenecks, leading to substantial structural cycle reductions.
-                            </p>
-                            <div class="pt-4 border-t border-sand/10">
-                                <button onclick="openCaseStudy(1)" class="w-full text-center px-4 py-2.5 bg-cream-darker hover:bg-terracotta hover:text-white transition-colors text-xs font-bold uppercase tracking-wider rounded-lg text-charcoal">
-                                    Read Case Study
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 2: Marketing -->
-                    <div class="bg-cream rounded-3xl border border-sand/10 overflow-hidden shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 flex flex-col h-full group reveal reveal-up" style="transition-delay: 250ms;">
-                        <!-- Card Header Graphic representing digital loop -->
-                        <div class="h-48 bg-gradient-to-br from-amber-50 to-orange-100 flex items-center justify-center p-6 relative overflow-hidden border-b border-sand/5">
-                            <div class="absolute inset-0 bg-[radial-gradient(#C1583A_1px,transparent_1px)] [background-size:16px_16px] opacity-20"></div>
-                            <!-- Circular animated representation -->
-                            <div class="relative bg-white w-40 h-40 rounded-full shadow-lg border border-sand/5 p-4 flex flex-col items-center justify-center transform translate-y-4 group-hover:translate-y-2 transition-all duration-300">
-                                <div class="w-full h-full flex items-center justify-center relative">
-                                    <!-- Rotating orbit loops -->
-                                    <div class="absolute w-24 h-24 border-2 border-dashed border-terracotta/20 rounded-full animate-spin-slow"></div>
-                                    <div class="absolute w-12 h-12 bg-terracotta-soft text-terracotta rounded-full flex items-center justify-center text-sm font-bold">4.2x</div>
-                                    <div class="absolute top-1 left-1 w-4 h-4 bg-[#1F1A17] rounded-full flex items-center justify-center text-[8px] text-white font-bold">ROI</div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Content -->
-                        <div class="p-6 sm:p-8 flex flex-col flex-grow space-y-4">
-                            <div class="flex justify-between items-center text-xs">
-                                <span class="px-2.5 py-1 bg-amber-500/10 text-amber-700 font-extrabold rounded-full tracking-wider uppercase text-[10px]">Marketing</span>
-                                <span class="text-sand font-medium">Growth / Performance</span>
-                            </div>
-                            <h3 class="text-xl font-serif font-bold text-charcoal leading-snug group-hover:text-terracotta transition-colors">
-                                The Hyper-Targeted Consumer Funnel Build
-                            </h3>
-                            <p class="text-sand text-sm leading-relaxed flex-grow">
-                                Programmed search engine layouts and multi-touch performance campaigns for a scaling direct-to-consumer apparel ecosystem, achieving a 4.2x verified ROI.
-                            </p>
-                            <div class="pt-4 border-t border-sand/10">
-                                <button onclick="openCaseStudy(2)" class="w-full text-center px-4 py-2.5 bg-cream-darker hover:bg-terracotta hover:text-white transition-colors text-xs font-bold uppercase tracking-wider rounded-lg text-charcoal">
-                                    Read Case Study
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 3: AI/ML -->
-                    <div class="bg-cream rounded-3xl border border-sand/10 overflow-hidden shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 flex flex-col h-full group reveal reveal-up" style="transition-delay: 400ms;">
-                        <!-- Card Header Graphic representing AI pipeline -->
-                        <div class="h-48 bg-[#1F1A17] text-white flex items-center justify-center p-6 relative overflow-hidden border-b border-sand/5">
-                            <div class="absolute inset-0 bg-[radial-gradient(#5C5652_1px,transparent_1px)] [background-size:16px_16px] opacity-30"></div>
-                            <!-- AI model matrix preview -->
-                            <div class="relative bg-neutral-800 w-full rounded-2xl border border-neutral-700 p-4 font-mono text-[9px] text-emerald-400 space-y-2 transform translate-y-4 group-hover:translate-y-2 transition-all duration-300">
-                                <div class="flex justify-between border-b border-neutral-700 pb-1.5">
-                                    <span>[SYSTEM_TRAINING]</span>
-                                    <span class="animate-pulse">● LIVE</span>
-                                </div>
-                                <p class="text-neutral-400">> epochs = 200, batch_size = 32</p>
-                                <p class="text-yellow-300">> test_loss: 0.0242 | accuracy: 0.968</p>
-                            </div>
-                        </div>
-                        
-                        <!-- Content -->
-                        <div class="p-6 sm:p-8 flex flex-col flex-grow space-y-4">
-                            <div class="flex justify-between items-center text-xs">
-                                <span class="px-2.5 py-1 bg-emerald-500/10 text-emerald-700 font-extrabold rounded-full tracking-wider uppercase text-[10px]">AI / ML</span>
-                                <span class="text-sand font-medium">Python / Predictive</span>
-                            </div>
-                            <h3 class="text-xl font-serif font-bold text-charcoal leading-snug group-hover:text-terracotta transition-colors">
-                                Custom Predictive Scoring Pipelines
-                            </h3>
-                            <p class="text-sand text-sm leading-relaxed flex-grow">
-                                Implemented supervised classification pipelines utilising multi-dimensional random-forest trees to accurately rank prospective user intent metrics.
-                            </p>
-                            <div class="pt-4 border-t border-sand/10">
-                                <button onclick="openCaseStudy(3)" class="w-full text-center px-4 py-2.5 bg-cream-darker hover:bg-terracotta hover:text-white transition-colors text-xs font-bold uppercase tracking-wider rounded-lg text-charcoal">
-                                    Read Case Study
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <!-- 4. SKILLS SECTION -->
-        <section id="skills" class="py-24 px-6 max-w-7xl mx-auto scroll-mt-12">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-                
-                <!-- Section Intro Sticky column -->
-                <div class="lg:col-span-5 lg:sticky lg:top-28 space-y-6 reveal reveal-right">
-                    <span class="text-xs font-bold uppercase tracking-widest text-terracotta">My Tooling Systems</span>
-                    <h2 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-charcoal leading-tight">
-                        Skills
-                    </h2>
-                    <p class="text-sand text-lg leading-relaxed">
-                        I balance qualitative business frameworks with precise digital performance stacks and technical programming toolsets.
-                    </p>
-
-                    <!-- Quote representation widget -->
-                    <div class="p-6 bg-cream-darker rounded-3xl border border-sand/10 space-y-4 relative">
-                        <p class="text-sm italic text-sand">
-                            "A broad strategic background allows me to communicate effortlessly with stakeholders, while my technical skills empower me to actually write the execution files myself."
-                        </p>
-                        <div class="flex items-center gap-3">
-                            <span class="w-8 h-8 rounded-full bg-terracotta text-white flex items-center justify-center text-xs font-bold font-serif italic">S</span>
-                            <div>
-                                <h5 class="text-xs font-bold text-charcoal">Shivam Sharma</h5>
-                                <p class="text-[10px] text-sand">Consultant, Marketer, Developer</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Interactive Skills Organizer Block (Grid & Interactive Cards) -->
-                <div class="lg:col-span-7 space-y-8 reveal reveal-left">
-                    
-                    <!-- Strategy Skill Cards Block -->
-                    <div class="p-6 sm:p-8 bg-cream-card rounded-3xl border border-sand/10 shadow-sm space-y-6 hover:border-terracotta/25 transition-colors">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 bg-terracotta-soft text-terracotta rounded-xl flex items-center justify-center">
-                                <i data-lucide="line-chart" class="w-5 h-5"></i>
-                            </div>
-                            <h3 class="text-xl font-serif font-bold text-charcoal">Management &amp; Operations Strategy</h3>
-                        </div>
-                        <p class="text-sand text-sm leading-relaxed">
-                            Formulating systemic business assessments, mapping business metrics, and resolving cross-functional bottlenecks.
-                        </p>
-                        <div class="flex flex-wrap gap-2 pt-2">
-                            <span class="px-3.5 py-1.5 bg-cream text-xs font-semibold text-charcoal rounded-full border border-sand/10 hover:border-terracotta hover:text-terracotta transition-colors">Operational Optimisation</span>
-                            <span class="px-3.5 py-1.5 bg-cream text-xs font-semibold text-charcoal rounded-full border border-sand/10 hover:border-terracotta hover:text-terracotta transition-colors">Market Research</span>
-                            <span class="px-3.5 py-1.5 bg-cream text-xs font-semibold text-charcoal rounded-full border border-sand/10 hover:border-terracotta hover:text-terracotta transition-colors">First Principles Analysis</span>
-                            <span class="px-3.5 py-1.5 bg-cream text-xs font-semibold text-charcoal rounded-full border border-sand/10 hover:border-terracotta hover:text-terracotta transition-colors">Quantitative Modelling</span>
-                        </div>
-                    </div>
-
-                    <!-- Digital Marketing Skill Cards Block -->
-                    <div class="p-6 sm:p-8 bg-cream-card rounded-3xl border border-sand/10 shadow-sm space-y-6 hover:border-amber-500/25 transition-colors">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center">
-                                <i data-lucide="target" class="w-5 h-5"></i>
-                            </div>
-                            <h3 class="text-xl font-serif font-bold text-charcoal">Modern Digital Growth Loops</h3>
-                        </div>
-                        <p class="text-sand text-sm leading-relaxed">
-                            Mapping structured conversion channels, scaling audience touchpoints via organic and performance algorithms.
-                        </p>
-                        <div class="flex flex-wrap gap-2 pt-2">
-                            <span class="px-3.5 py-1.5 bg-cream text-xs font-semibold text-charcoal rounded-full border border-sand/10 hover:border-amber-500 hover:text-amber-700 transition-colors">Conversion Rate Optimisation</span>
-                            <span class="px-3.5 py-1.5 bg-cream text-xs font-semibold text-charcoal rounded-full border border-sand/10 hover:border-amber-500 hover:text-amber-700 transition-colors">Search Layout Blueprinting (SEO/SEM)</span>
-                            <span class="px-3.5 py-1.5 bg-cream text-xs font-semibold text-charcoal rounded-full border border-sand/10 hover:border-amber-500 hover:text-amber-700 transition-colors">Performance Media Funnels</span>
-                            <span class="px-3.5 py-1.5 bg-cream text-xs font-semibold text-charcoal rounded-full border border-sand/10 hover:border-amber-500 hover:text-amber-700 transition-colors">Audience Psychology Models</span>
-                        </div>
-                    </div>
-
-                    <!-- Tech & AI/ML Skill Cards Block -->
-                    <div class="p-6 sm:p-8 bg-cream-card rounded-3xl border border-sand/10 shadow-sm space-y-6 hover:border-emerald-500/25 transition-colors">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center">
-                                <i data-lucide="binary" class="w-5 h-5"></i>
-                            </div>
-                            <h3 class="text-xl font-serif font-bold text-charcoal">Artificial Intelligence &amp; Computation</h3>
-                        </div>
-                        <p class="text-sand text-sm leading-relaxed">
-                            Developing algorithms to process large scale arrays, deploying statistical regression models, and building machine learning tools.
-                        </p>
-                        <div class="flex flex-wrap gap-2 pt-2">
-                            <span class="px-3.5 py-1.5 bg-cream text-xs font-semibold text-charcoal rounded-full border border-sand/10 hover:border-emerald-500 hover:text-emerald-700 transition-colors">Python (Scikit-Learn, Pandas)</span>
-                            <span class="px-3.5 py-1.5 bg-cream text-xs font-semibold text-charcoal rounded-full border border-sand/10 hover:border-emerald-500 hover:text-emerald-700 transition-colors">Supervised Learning &amp; Forests</span>
-                            <span class="px-3.5 py-1.5 bg-cream text-xs font-semibold text-charcoal rounded-full border border-sand/10 hover:border-emerald-500 hover:text-emerald-700 transition-colors">Data Array Pipeline Organisation</span>
-                            <span class="px-3.5 py-1.5 bg-cream text-xs font-semibold text-charcoal rounded-full border border-sand/10 hover:border-emerald-500 hover:text-emerald-700 transition-colors">LLM Deployment &amp; Architecture</span>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <!-- 5. CONTACT SECTION -->
-        <section id="contact" class="py-24 px-6 max-w-4xl mx-auto scroll-mt-12 text-center">
-            <div class="space-y-12 reveal reveal-scale">
-                <div class="space-y-4">
-                    <span class="text-xs font-bold uppercase tracking-widest text-terracotta">Establish a connection</span>
-                    <h2 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-charcoal">
-                        Contact
-                    </h2>
-                </div>
-                
-                <!-- Contact Details Grid (Upgraded with clean, high-contrast inline SVGs) -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto text-left">
-                    <!-- Email Card with Inline SVG -->
-                    <div class="p-6 bg-cream-card rounded-3xl border border-sand/10 flex flex-col justify-between gap-6 hover:border-terracotta/30 transition-all shadow-sm">
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 bg-terracotta-soft text-terracotta rounded-2xl flex items-center justify-center shrink-0">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"></path>
-                                </svg>
-                            </div>
-                            <div class="overflow-hidden">
-                                <span class="text-[10px] text-sand uppercase tracking-wider font-bold">Direct Email</span>
-                                <p id="email-address" class="text-charcoal font-bold text-base truncate">shivamsh4904@gmail.com</p>
-                            </div>
-                        </div>
-                        <button onclick="copyEmailToClipboard()" class="w-full py-3 bg-cream hover:bg-terracotta hover:text-white rounded-xl border border-sand/15 transition-all text-xs font-extrabold uppercase tracking-wider" aria-label="Copy email">
-                            <span id="copy-btn-text">Copy Email Address</span>
-                        </button>
-                    </div>
-
-                    <!-- LinkedIn Card with Inline SVG -->
-                    <a href="https://www.linkedin.com/in/shivamsharmaco/" target="_blank" class="p-6 bg-cream-card rounded-3xl border border-sand/10 flex flex-col justify-between gap-6 hover:border-terracotta/30 transition-all shadow-sm group">
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 bg-[#0A66C2]/10 text-[#0A66C2] rounded-2xl flex items-center justify-center shrink-0">
-                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                                </svg>
-                            </div>
-                            <div>
-                                <span class="text-[10px] text-sand uppercase tracking-wider font-bold">Networking</span>
-                                <p class="text-charcoal font-bold text-base">shivamsharmaco</p>
-                            </div>
-                        </div>
-                        <span class="w-full py-3 bg-cream group-hover:bg-terracotta group-hover:text-white rounded-xl border border-sand/15 transition-all text-xs font-extrabold uppercase tracking-wider text-center inline-flex items-center justify-center gap-2">
-                            Connect on LinkedIn
-                            <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
-                        </span>
-                    </a>
-                </div>
-
-                <!-- Dynamic Success/Alert Modal Notification element -->
-                <div id="toast-message" class="hidden p-4 bg-emerald-500 text-white rounded-2xl flex items-center justify-center gap-3 shadow-lg transition-all transform scale-95 opacity-0 max-w-md mx-auto">
-                    <i data-lucide="check-circle" class="w-5 h-5 shrink-0"></i>
-                    <span class="text-xs font-bold tracking-wide">Copy successful! Email copied to your clipboard.</span>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- 7. PORTFOLIO FOOTER -->
-    <footer class="bg-charcoal text-cream-darker py-20 px-6 relative overflow-hidden">
-        <div class="max-w-7xl mx-auto space-y-16">
-            
-            <!-- Large interactive CTA Block -->
-            <div class="p-8 sm:p-12 bg-terracotta rounded-4.5xl text-white relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-8 shadow-xl">
-                <!-- Inner geometric details -->
-                <div class="absolute inset-0 bg-[radial-gradient(#FAF0ED_1px,transparent_1px)] [background-size:20px_20px] opacity-10"></div>
-                
-                <div class="space-y-3 relative z-10 max-w-lg">
-                    <h3 class="text-3xl sm:text-4xl font-serif font-bold leading-tight">Ready to discuss new opportunities?</h3>
-                    <p class="text-cream-darker/80 text-sm sm:text-base leading-relaxed">
-                        Let's connect to explore operational strategy, digital marketing loops, and programmatic machine learning projects.
-                    </p>
-                </div>
-                
-                <a href="mailto:shivamsh4904@gmail.com" class="px-8 py-4 bg-charcoal hover:bg-cream hover:text-charcoal text-xs font-extrabold uppercase tracking-wider rounded-full shadow-lg transition-colors inline-flex items-center gap-2 shrink-0 self-start md:self-center z-10">
-                    Get in touch
-                    <i data-lucide="chevron-right" class="w-4 h-4"></i>
-                </a>
-            </div>
-
-            <!-- Ultra-Clean Bottom Bar -->
-            <div class="pt-8 border-t border-sand/10 flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-sand">
-                <a href="#" class="flex items-center gap-3 text-white text-lg font-bold">
-                    <span class="w-8 h-8 bg-terracotta text-cream flex items-center justify-center rounded-full font-serif font-semibold italic text-lg">S</span>
-                    <span class="tracking-tight text-white">shivam.sharma</span>
-                </a>
-                <p>&copy; 2026 Shivam Sharma. All Rights Reserved. Strategy first, digital fluency always.</p>
-            </div>
-
+          </div>
         </div>
-    </footer>
+      </article>
 
-
-    <!-- ============================================ -->
-    <!-- CASE STUDY DRAWER MODALS -->
-    <!-- ============================================ -->
-    <div id="case-study-drawer" class="fixed inset-y-0 right-0 w-full md:max-w-xl bg-cream border-l border-sand/15 shadow-2xl z-50 transform translate-x-full transition-transform duration-500 ease-out flex flex-col">
-        <!-- Drawer Header -->
-        <div class="p-6 border-b border-sand/10 flex items-center justify-between bg-cream-card">
-            <div class="flex items-center gap-2.5">
-                <span id="drawer-tag" class="px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider rounded-full">TAG</span>
-                <span id="drawer-id" class="text-xs text-sand font-mono">ID</span>
-            </div>
-            <button onclick="closeCaseStudy()" class="w-9 h-9 border border-sand/10 hover:border-terracotta hover:bg-terracotta hover:text-cream text-charcoal rounded-full flex items-center justify-center transition-all">
-                <i data-lucide="x" class="w-4 h-4"></i>
-            </button>
+      <!-- Case study 3 -->
+      <article class="case" id="case-ml" aria-labelledby="case-ml-title">
+        <div class="case-text">
+          <p class="case-eyebrow">03 — Artificial Intelligence</p>
+          <h3 id="case-ml-title">Custom predictive scoring pipelines.</h3>
+          <p>
+            Random&#8209;forest classification for user intent ranking, built in Python
+            with Scikit&#8209;Learn and Pandas. Trained over 200 epochs at batch size 32,
+            landing at a 0.0242 test loss.
+          </p>
         </div>
-
-        <!-- Drawer Content (Scrollable) -->
-        <div class="flex-grow overflow-y-auto p-6 sm:p-8 space-y-6">
-            <h3 id="drawer-title" class="text-3xl font-serif font-bold text-charcoal leading-tight">Project Title</h3>
-            <div class="h-[1px] w-full bg-sand/10"></div>
-            
-            <div class="space-y-4">
-                <h4 class="text-xs font-bold uppercase tracking-widest text-terracotta">Background &amp; Operational Targets</h4>
-                <p id="drawer-desc" class="text-sand text-sm leading-relaxed">Project detail info is dynamic.</p>
+        <div class="case-stats">
+          <p class="stats-label"><span class="dot" aria-hidden="true"></span>Measured outcome</p>
+          <div class="stat-row">
+            <div class="stat stat-accent">
+              <span class="stat-caption">Model accuracy</span>
+              <span class="stat-figure">96.8%</span>
             </div>
-
-            <div class="space-y-4 bg-cream-darker p-5 rounded-2.5xl border border-sand/10">
-                <h4 class="text-xs font-bold uppercase tracking-widest text-charcoal">Key Metrics Achieved</h4>
-                <div class="grid grid-cols-2 gap-4" id="drawer-stats">
-                    <!-- Dynamic metrics here -->
-                </div>
+            <div class="stat stat-grey">
+              <span class="stat-caption">Test loss</span>
+              <span class="stat-figure stat-figure-small">0.0242</span>
             </div>
-
-            <div class="space-y-4">
-                <h4 class="text-xs font-bold uppercase tracking-widest text-terracotta">Implementation Steps</h4>
-                <ol class="space-y-3.5 list-decimal list-inside text-sm text-sand leading-relaxed" id="drawer-steps">
-                    <!-- Dynamic steps here -->
-                </ol>
-            </div>
+          </div>
         </div>
+      </article>
+    </section>
 
-        <!-- Drawer Footer -->
-        <div class="p-6 border-t border-sand/10 bg-cream-card flex gap-4">
-            <a href="#contact" onclick="closeCaseStudy()" class="flex-1 text-center py-3.5 bg-terracotta hover:bg-terracotta-dark text-white text-xs font-extrabold uppercase tracking-wider rounded-full shadow-md transition-colors">
-                Connect Regarding This Project
-            </a>
+    <!-- Skills -->
+    <section class="skills" id="skills" aria-labelledby="skills-heading">
+      <div class="section-head">
+        <h2 id="skills-heading"><span class="dot" aria-hidden="true"></span>Skills</h2>
+        <p>Three clusters that talk to each other.</p>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <h3>Management &amp; operations strategy</h3>
+          <ul>
+            <li>Go-to-market planning</li>
+            <li>Stakeholder communication</li>
+            <li>Operational modelling</li>
+            <li>Cycle &amp; bottleneck analysis</li>
+          </ul>
         </div>
-    </div>
+        <div class="skill-card">
+          <h3>Modern digital growth loops</h3>
+          <ul>
+            <li>Audience mapping</li>
+            <li>Search &amp; multi-touch campaigns</li>
+            <li>Funnel design &amp; attribution</li>
+            <li>ROI measurement</li>
+          </ul>
+        </div>
+        <div class="skill-card">
+          <h3>Artificial intelligence &amp; computation</h3>
+          <ul>
+            <li>Python</li>
+            <li>Scikit-Learn &amp; Pandas</li>
+            <li>Supervised learning</li>
+            <li>Predictive scoring models</li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
-    <!-- Backdrop overlay for Drawer -->
-    <div id="drawer-backdrop" onclick="closeCaseStudy()" class="fixed inset-0 bg-charcoal/40 backdrop-blur-sm z-40 hidden transition-opacity duration-300 opacity-0"></div>
+    <!-- About -->
+    <section class="about" id="about" aria-labelledby="about-heading">
+      <h2 class="visually-hidden" id="about-heading">About</h2>
+      <p class="about-statement">
+        Most strategists can't ship. Most builders can't brief a boardroom.<br>
+        <em>I do both.</em>
+      </p>
+    </section>
 
+    <!-- Contact -->
+    <section class="contact" id="contact" aria-labelledby="contact-heading">
+      <p class="kicker">Contact</p>
+      <h2 id="contact-heading">Ready to discuss <em>new opportunities?</em></h2>
+      <div class="contact-actions">
+        <a class="btn btn-dark" href="mailto:shivamsh4904@gmail.com">shivamsh4904@gmail.com</a>
+        <a class="btn btn-accent" href="https://www.linkedin.com/in/shivamsharmaco/" rel="me">LinkedIn<span aria-hidden="true"> →</span></a>
+      </div>
+    </section>
 
-    <!-- ============================================ -->
-    <!-- INTERACTIVE JAVASCRIPT SYSTEM -->
-    <!-- ============================================ -->
-    <script>
-        // Initialize Lucide Icons
-        lucide.createIcons();
+  </main>
 
-        // 1. DYNAMIC PRELOADER TIMING PIPELINE (Paced deliberately to build anticipation)
-        document.addEventListener('DOMContentLoaded', () => {
-            const percentageText = document.getElementById('loader-percentage');
-            const loaderBar = document.getElementById('loader-bar');
-            const loader = document.getElementById('loader');
-            let progress = 0;
+  <footer class="site-footer">
+    <p>© 2026 Shivam Sharma. All rights reserved.</p>
+    <p class="footer-tagline">Strategy first, digital fluency always.</p>
+  </footer>
 
-            const updateProgress = () => {
-                // Smooth increments of 1% or 2% at a time to keep pacing steady
-                const increment = Math.floor(Math.random() * 2) + 1; 
-                progress = Math.min(100, progress + increment);
-                
-                percentageText.innerText = String(progress).padStart(2, '0') + '%';
-                loaderBar.style.width = progress + '%';
-
-                if (progress >= 100) {
-                    clearInterval(loaderInterval);
-                    
-                    // Allow visual pause on 100% before transition
-                    setTimeout(() => {
-                        loader.classList.add('-translate-y-full');
-                        document.body.classList.remove('overflow-hidden');
-                        
-                        // Initialise Scroll reveals after preloader exits
-                        setTimeout(() => {
-                            loader.remove(); // Unmount loader completely
-                            triggerInitialScrollReveal();
-                        }, 1000);
-                    }, 400);
-                }
-            };
-
-            // Lock scroll mechanics
-            document.body.classList.add('overflow-hidden');
-            const loaderInterval = setInterval(updateProgress, 30); // ~3 seconds total load duration
-        });
-
-        // 2. CASE STUDY DATA DRAWER MANAGEMENT
-        const caseStudyDatabase = {
-            1: {
-                tag: "Management Consulting",
-                id: "SH-OPS-01",
-                tagColorClass: "bg-terracotta-soft text-terracotta",
-                title: "Enterprise Go-To-Market & Operational Cycle Optimisation",
-                desc: "Working inside scaling logistics and product pipelines, I was tasked with mapping out key product-to-market cycles. By identifying critical bottlenecks in legacy processing environments, we restructured communication workflows and automated hand-offs.",
-                stats: [
-                    { label: "Cycle Reduction", val: "24% Saved" },
-                    { label: "Efficiency Gain", val: "1.8x Speed" }
-                ],
-                steps: [
-                    "Mapped core operational pipelines from factory floor to end retail layout.",
-                    "Isolated hand-off delays between operations and logistical fleets.",
-                    "Implemented automation models using simple scheduling algorithms.",
-                    "Developed stakeholder dashboards to monitor flow constraints in real-time."
-                ]
-            },
-            2: {
-                tag: "Digital Marketing",
-                id: "SH-MKT-02",
-                tagColorClass: "bg-amber-500/10 text-amber-700",
-                title: "The Hyper-Targeted Consumer Growth Funnel Build",
-                desc: "This project focused on scaling direct conversions for an emerging D2C brand. I established deep search optimisations, mapped detailed audience pathways, and managed programmatic search funnels.",
-                stats: [
-                    { label: "Return on Ad Spend", val: "4.2x ROI" },
-                    { label: "Organic Flow Acquisition", val: "+140% Search" }
-                ],
-                steps: [
-                    "Engineered localised keyword structures to capture high-intent users.",
-                    "Designed landing layouts leveraging conversion copywriting principles.",
-                    "Configured analytical triggers to trace multi-touch user pathways.",
-                    "A/B tested visual content layers, resulting in 32% lower acquisition costs."
-                ]
-            },
-            3: {
-                tag: "AI & Machine Learning",
-                id: "SH-AIML-03",
-                tagColorClass: "bg-emerald-500/10 text-emerald-700",
-                title: "Custom Predictive Scoring Pipelines",
-                desc: "Using structural programming libraries, I coded predictive pipelines capable of forecasting user purchase intent. This allows growth teams to optimise call/email pipelines, dedicating high-value assets to verified high-intent interactions.",
-                stats: [
-                    { label: "Predictive Accuracy", val: "96.8% Certified" },
-                    { label: "Pipeline Yield Upswing", val: "18% Boost" }
-                ],
-                steps: [
-                    "Extracted multidimensional interaction metrics from enterprise sales histories.",
-                    "Cleaned, organised, and engineered high-impact dataset variables inside Pandas.",
-                    "Trained random-forest classification estimators via Scikit-Learn pipelines.",
-                    "Created simple direct APIs connecting classification systems to active CRM metrics."
-                ]
-            }
-        };
-
-        function openCaseStudy(id) {
-            const data = caseStudyDatabase[id];
-            if (!data) return;
-
-            // Fill Drawer Details
-            document.getElementById('drawer-tag').innerText = data.tag;
-            document.getElementById('drawer-tag').className = `px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider rounded-full ${data.tagColorClass}`;
-            document.getElementById('drawer-id').innerText = data.id;
-            document.getElementById('drawer-title').innerText = data.title;
-            document.getElementById('drawer-desc').innerText = data.desc;
-
-            // Set Metrics layout
-            const statsContainer = document.getElementById('drawer-stats');
-            statsContainer.innerHTML = '';
-            data.stats.forEach(stat => {
-                statsContainer.innerHTML += `
-                    <div class="bg-cream p-4 rounded-xl border border-sand/5 text-center">
-                        <span class="block text-xl font-bold text-terracotta">${stat.val}</span>
-                        <span class="text-[10px] text-sand uppercase tracking-wider">${stat.label}</span>
-                    </div>
-                `;
-            });
-
-            // Set Steps list
-            const stepsContainer = document.getElementById('drawer-steps');
-            stepsContainer.innerHTML = '';
-            data.steps.forEach(step => {
-                stepsContainer.innerHTML += `<li>${step}</li>`;
-            });
-
-            // Show Backdrop & Draw Slide
-            const backdrop = document.getElementById('drawer-backdrop');
-            const drawer = document.getElementById('case-study-drawer');
-            
-            backdrop.classList.remove('hidden');
-            setTimeout(() => {
-                backdrop.classList.add('opacity-100');
-                drawer.classList.remove('translate-x-full');
-            }, 50);
-        }
-
-        function closeCaseStudy() {
-            const backdrop = document.getElementById('drawer-backdrop');
-            const drawer = document.getElementById('case-study-drawer');
-
-            drawer.classList.add('translate-x-full');
-            backdrop.classList.remove('opacity-100');
-            
-            setTimeout(() => {
-                backdrop.classList.add('hidden');
-            }, 300);
-        }
-
-        // Copy Email mechanism with nice toast feedbacks
-        function copyEmailToClipboard() {
-            const emailText = document.getElementById('email-address').innerText;
-            
-            // Fallback for document copies in iframe environments
-            const tempInput = document.createElement('input');
-            tempInput.value = emailText;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand('copy');
-            document.body.removeChild(tempInput);
-
-            // Animate Button copy feedback
-            const copyBtnText = document.getElementById('copy-btn-text');
-            copyBtnText.innerText = 'Copied!';
-            copyBtnText.parentElement.classList.add('bg-emerald-500', 'text-white', 'border-transparent');
-
-            // Show beautiful Toast panel briefly
-            const toast = document.getElementById('toast-message');
-            toast.classList.remove('hidden');
-            setTimeout(() => {
-                toast.classList.remove('scale-95', 'opacity-0');
-                toast.classList.add('scale-100', 'opacity-100');
-            }, 50);
-
-            setTimeout(() => {
-                toast.classList.remove('scale-100', 'opacity-100');
-                toast.classList.add('scale-95', 'opacity-0');
-                setTimeout(() => {
-                    toast.classList.add('hidden');
-                }, 300);
-
-                // Reset button text
-                copyBtnText.innerText = 'Copy Email Address';
-                copyBtnText.parentElement.classList.remove('bg-emerald-500', 'text-white', 'border-transparent');
-            }, 4000);
-        }
-
-
-        // 3. MOBILE DRAWER NAVIGATION MENU CONTROLS
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileDrawer = document.getElementById('mobile-drawer');
-        const menuLine1 = document.getElementById('menu-line-1');
-        const menuLine2 = document.getElementById('menu-line-2');
-        const headerElement = document.querySelector('header');
-        let isDrawerOpen = false;
-
-        mobileMenuBtn.addEventListener('click', () => {
-            isDrawerOpen = !isDrawerOpen;
-            if (isDrawerOpen) {
-                mobileDrawer.classList.remove('-translate-y-full');
-                menuLine1.style.transform = 'translateY(2.5px) rotate(45deg)';
-                menuLine2.style.transform = 'translateY(-2.5px) rotate(-45deg)';
-                
-                // Toggle lines to white high contrast
-                menuLine1.classList.remove('bg-charcoal');
-                menuLine1.classList.add('bg-cream');
-                menuLine2.classList.remove('bg-charcoal');
-                menuLine2.classList.add('bg-cream');
-
-                // Toggle menu button background to solid Terracotta
-                mobileMenuBtn.classList.add('bg-terracotta', 'border-transparent');
-                mobileMenuBtn.classList.remove('border-sand/20', 'bg-cream');
-
-                // Apply solid cream background to header when drawer is open
-                headerElement.classList.add('bg-[#FDFBF7]');
-                headerElement.classList.remove('bg-cream/85', 'backdrop-blur-md');
-            } else {
-                mobileDrawer.classList.add('-translate-y-full');
-                menuLine1.style.transform = 'none';
-                menuLine2.style.transform = 'none';
-
-                // Restore line colours to charcoal
-                menuLine1.classList.add('bg-charcoal');
-                menuLine1.classList.remove('bg-cream');
-                menuLine2.classList.add('bg-charcoal');
-                menuLine2.classList.remove('bg-cream');
-
-                // Restore menu button background style
-                mobileMenuBtn.classList.remove('bg-terracotta', 'border-transparent');
-                mobileMenuBtn.classList.add('border-sand/20', 'bg-cream');
-
-                // Restore transparent background blur when drawer closes
-                headerElement.classList.remove('bg-[#FDFBF7]');
-                headerElement.classList.add('bg-cream/85', 'backdrop-blur-md');
-            }
-        });
-
-        // Close drawer on link click
-        document.querySelectorAll('.mobile-nav-link').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const target = link.getAttribute('data-target');
-                isDrawerOpen = false;
-                mobileDrawer.classList.add('-translate-y-full');
-                menuLine1.style.transform = 'none';
-                menuLine2.style.transform = 'none';
-
-                menuLine1.classList.add('bg-charcoal');
-                menuLine1.classList.remove('bg-cream');
-                menuLine2.classList.add('bg-charcoal');
-                menuLine2.classList.remove('bg-cream');
-
-                mobileMenuBtn.classList.remove('bg-terracotta', 'border-transparent');
-                mobileMenuBtn.classList.add('border-sand/20', 'bg-cream');
-
-                headerElement.classList.remove('bg-[#FDFBF7]');
-                headerElement.classList.add('bg-cream/85', 'backdrop-blur-md');
-                
-                // Scroll to target smoothly after slight pause
-                setTimeout(() => {
-                    document.getElementById(target).scrollIntoView({ behavior: 'smooth' });
-                }, 150);
-            });
-        });
-
-
-        // 4. INTERSECTION OBSERVER (SCROLL REVEAL TRIGGERS)
-        const revealCallback = (entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        };
-
-        const revealObserver = new IntersectionObserver(revealCallback, {
-            root: null,
-            threshold: 0.1,
-            rootMargin: '0px 0px -40px 0px'
-        });
-
-        function triggerInitialScrollReveal() {
-            const revealElements = document.querySelectorAll('.reveal');
-            revealElements.forEach(element => {
-                revealObserver.observe(element);
-            });
-        }
-
-        // 5. CUSTOM MINIMAL DOT CURSOR
-        (function() {
-            if (!window.matchMedia('(pointer: fine)').matches) return;
-
-            const dot = document.getElementById('cursor-dot');
-            dot.style.display = 'block';
-            const interactiveSelectors = 'a, button, [onclick], input, textarea, select, label, [role="button"]';
-
-            document.addEventListener('mousemove', e => {
-                dot.style.left = e.clientX + 'px';
-                dot.style.top  = e.clientY + 'px';
-
-                const hovered = document.elementFromPoint(e.clientX, e.clientY);
-                const isInteractive = hovered && hovered.closest(interactiveSelectors);
-                dot.classList.toggle('is-hovering', !!isInteractive);
-            });
-
-            document.addEventListener('mousedown', () => dot.classList.add('is-down'));
-            document.addEventListener('mouseup',   () => dot.classList.remove('is-down'));
-            document.addEventListener('mouseleave', () => { dot.style.opacity = '0'; dot.classList.remove('is-down'); });
-            document.addEventListener('mouseenter', () => { dot.style.opacity = '1'; });
-        })();
-    </script>
-
+  <script src="js/main.js"></script>
 </body>
 </html>

@@ -8,7 +8,7 @@
   --ink: #1a1918;
   --ink-soft: #55524b;
   --line: #d8d6d0;
-  --accent: #e0f261;
+  --accent: #B8E0D2;
   --grey-card: #dddbd5;
   --font-display: "Instrument Serif", Georgia, serif;
   --font-text: "Archivo", "Helvetica Neue", Arial, sans-serif;
@@ -162,7 +162,7 @@ a {
 }
 
 .btn-accent:hover {
-  background: #d3e94a;
+  background: #9dccb9;
 }
 
 /* Hero -------------------------------------------------------------- */

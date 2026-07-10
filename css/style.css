@@ -561,3 +561,80 @@ article:focus-visible {
     transition: none;
   }
 }
+
+/* Side nav (dots, hover-reveal labels) ------------------------------------ */
+
+#side-nav {
+  position: fixed;
+  left: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%) translateX(-8px);
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#side-nav.is-visible {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+  pointer-events: auto;
+}
+
+#side-nav a {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0.3rem;
+  text-decoration: none;
+}
+
+#side-nav .dot-mark {
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--line);
+  flex: none;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+#side-nav a:hover .dot-mark {
+  background: var(--ink-soft);
+  transform: scale(1.4);
+}
+
+#side-nav a.is-active .dot-mark {
+  background: var(--ink);
+  transform: scale(1.6);
+}
+
+#side-nav .side-label {
+  position: absolute;
+  left: 100%;
+  margin-left: 0.6rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink);
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  pointer-events: none;
+}
+
+#side-nav a:hover .side-label {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+@media (max-width: 900px) {
+  #side-nav {
+    display: none;
+  }
+}

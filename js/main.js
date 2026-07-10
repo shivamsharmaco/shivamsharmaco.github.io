@@ -38,4 +38,46 @@
       }
     });
   });
+
+  // Side nav: fade in past hero, track active section
+  var sideNav = document.getElementById("side-nav");
+  var hero = document.getElementById("hero");
+  if (sideNav && hero) {
+    var sideLinks = sideNav.querySelectorAll("a");
+    var sideSections = Array.prototype.filter.call(
+      document.querySelectorAll("section[id]"),
+      function (el) {
+        return sideNav.querySelector('[data-target="' + el.id + '"]');
+      }
+    );
+
+    var ticking = false;
+    function updateSideNav() {
+      ticking = false;
+      var heroBottom = hero.getBoundingClientRect().bottom;
+      sideNav.classList.toggle("is-visible", heroBottom < 80);
+
+      var currentId = sideSections.length ? sideSections[0].id : null;
+      sideSections.forEach(function (sec) {
+        if (sec.getBoundingClientRect().top <= window.innerHeight * 0.4) {
+          currentId = sec.id;
+        }
+      });
+      sideLinks.forEach(function (link) {
+        link.classList.toggle("is-active", link.getAttribute("data-target") === currentId);
+      });
+    }
+
+    window.addEventListener(
+      "scroll",
+      function () {
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(updateSideNav);
+        }
+      },
+      { passive: true }
+    );
+    updateSideNav();
+  }
 })();

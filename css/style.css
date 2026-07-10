@@ -43,10 +43,21 @@ a {
   color: inherit;
 }
 
-:focus-visible {
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
   outline: 2px solid var(--ink);
   outline-offset: 3px;
   border-radius: 2px;
+}
+
+section:focus,
+section:focus-visible,
+article:focus,
+article:focus-visible {
+  outline: none;
 }
 
 /* Accessibility helpers ------------------------------------------- */

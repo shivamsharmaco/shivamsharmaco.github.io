@@ -2,230 +2,409 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shivam Sharma — Strategy, Marketing &amp; Machine Learning</title>
-  <meta name="description" content="Shivam Sharma is a strategy-first consultant and marketer with hands-on AI/ML skills. Management consulting, digital growth and predictive modelling — from the boardroom to the build.">
-  <meta property="og:title" content="Shivam Sharma — Strategy, Marketing &amp; Machine Learning">
-  <meta property="og:description" content="Strategy-first. Digitally fluent. I make brands work smarter.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Shivam's Room</title>
+  <meta name="description" content="Come on in. Click around my room — the bookshelf, the PC, the TV — to see what I'm reading, playing, watching and listening to.">
+  <meta property="og:title" content="Shivam's Room">
+  <meta property="og:description" content="Click around my room to see what I'm reading, playing, watching and listening to.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://shivamsharma.co">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='6'%20fill='%231a1918'/%3E%3Ctext%20x='16'%20y='23'%20font-family='Georgia,serif'%20font-size='20'%20fill='%23f0efec'%20text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E">
+  <meta name="theme-color" content="#1c1626">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='6'%20fill='%232e2540'/%3E%3Crect%20x='9'%20y='7'%20width='14'%20height='18'%20rx='2'%20fill='%23ffd27a'/%3E%3Crect%20x='12'%20y='10'%20width='8'%20height='6'%20fill='%232e2540'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo:wght@400;500;600;700&family=VT323&family=Anton&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/room.css">
 </head>
-<body>
-  <a class="skip-link" href="#main">Skip to content</a>
+<body class="at-room">
 
-  <nav id="side-nav" aria-label="Section">
-    <a href="#hero" data-target="hero"><span class="dot-mark"></span><span class="side-label">Intro</span></a>
-    <a href="#vision" data-target="vision"><span class="dot-mark"></span><span class="side-label">Vision</span></a>
-    <a href="#work" data-target="work"><span class="dot-mark"></span><span class="side-label">Work</span></a>
-    <a href="#skills" data-target="skills"><span class="dot-mark"></span><span class="side-label">Skills</span></a>
-    <a href="#about" data-target="about"><span class="dot-mark"></span><span class="side-label">About</span></a>
-    <a href="#contact" data-target="contact"><span class="dot-mark"></span><span class="side-label">Contact</span></a>
-  </nav>
+  <!-- ============ THE ROOM ============ -->
+  <div class="room-viewport" id="room-viewport">
+    <div class="room-scroller" id="room-scroller">
+      <div class="scene" id="scene">
+        <svg class="room" id="room" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="room-title">
+          <title id="room-title">An illustrated bedroom at night with a bookshelf, a TV, a record player, a bed, a desk with a PC, and a corkboard.</title>
+          <defs>
+            <linearGradient id="g-wall" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#2a2138"/>
+              <stop offset="1" stop-color="#3a2d4a"/>
+            </linearGradient>
+            <linearGradient id="g-floor" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#4a3226"/>
+              <stop offset="1" stop-color="#2f1f18"/>
+            </linearGradient>
+            <linearGradient id="g-sky" x1="0" y1="0" x2="0" y2="1" class="sky-grad">
+              <stop offset="0" class="sky-top"/>
+              <stop offset="1" class="sky-bottom"/>
+            </linearGradient>
+            <linearGradient id="g-tv" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#3f7fb3"/>
+              <stop offset="1" stop-color="#1b3a5c"/>
+            </linearGradient>
+            <linearGradient id="g-monitor" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#5b3fa8"/>
+              <stop offset=".62" stop-color="#e2748f"/>
+              <stop offset=".62" stop-color="#2b1d47"/>
+              <stop offset="1" stop-color="#1a1230"/>
+            </linearGradient>
+            <radialGradient id="g-lamp" cx=".5" cy=".5" r=".5">
+              <stop offset="0" stop-color="#ffcf7a" stop-opacity=".55"/>
+              <stop offset=".5" stop-color="#ffb35c" stop-opacity=".16"/>
+              <stop offset="1" stop-color="#ffb35c" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="g-tvglow" cx=".5" cy=".5" r=".5">
+              <stop offset="0" stop-color="#6fb7ff" stop-opacity=".28"/>
+              <stop offset="1" stop-color="#6fb7ff" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="g-pcglow" cx=".5" cy=".5" r=".5">
+              <stop offset="0" stop-color="#d27aff" stop-opacity=".25"/>
+              <stop offset="1" stop-color="#d27aff" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="g-vignette" cx=".5" cy=".45" r=".75">
+              <stop offset=".55" stop-color="#000" stop-opacity="0"/>
+              <stop offset="1" stop-color="#000" stop-opacity=".55"/>
+            </radialGradient>
+            <pattern id="p-scan" width="4" height="4" patternUnits="userSpaceOnUse">
+              <rect width="4" height="2" fill="#fff" opacity=".06"/>
+            </pattern>
+            <pattern id="p-cork" width="10" height="10" patternUnits="userSpaceOnUse">
+              <rect width="10" height="10" fill="#b98a5a"/>
+              <circle cx="2" cy="3" r="1" fill="#a37548"/>
+              <circle cx="7" cy="7" r="1.2" fill="#c99c6a"/>
+              <circle cx="8" cy="2" r=".8" fill="#9c6e42"/>
+            </pattern>
+            <filter id="f-glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="4"/>
+            </filter>
+          </defs>
 
-  <header class="masthead">
-    <h1 class="wordmark" aria-label="Shivam Sharma">shivam&nbsp;sharma</h1>
-    <nav class="site-nav" aria-label="Primary">
-      <ul>
-        <li><a href="#work">Work</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a class="nav-cta" href="#contact">Work with me<span aria-hidden="true"> →</span></a></li>
-      </ul>
+          <!-- wall + floor -->
+          <rect x="-1600" y="-400" width="4800" height="1100" fill="url(#g-wall)"/>
+          <g opacity=".07" stroke="#fff" stroke-width="2">
+            <line x1="0" y1="520" x2="1600" y2="520"/>
+          </g>
+          <rect x="-1600" y="680" width="4800" height="620" fill="url(#g-floor)"/>
+          <g stroke="#24170f" stroke-width="2" opacity=".55">
+            <line x1="0" y1="730" x2="1600" y2="730"/>
+            <line x1="0" y1="790" x2="1600" y2="790"/>
+            <line x1="0" y1="855" x2="1600" y2="855"/>
+            <line x1="210" y1="680" x2="210" y2="730"/><line x1="690" y1="680" x2="690" y2="730"/><line x1="1240" y1="680" x2="1240" y2="730"/>
+            <line x1="420" y1="730" x2="420" y2="790"/><line x1="980" y1="730" x2="980" y2="790"/><line x1="1450" y1="730" x2="1450" y2="790"/>
+            <line x1="130" y1="790" x2="130" y2="855"/><line x1="760" y1="790" x2="760" y2="855"/><line x1="1320" y1="790" x2="1320" y2="855"/>
+          </g>
+          <rect x="-1600" y="672" width="4800" height="14" fill="#1f1828"/>
+
+          <!-- light pools -->
+          <ellipse cx="1240" cy="470" rx="330" ry="300" fill="url(#g-lamp)" class="lamp-light"/>
+          <ellipse cx="560" cy="500" rx="260" ry="200" fill="url(#g-tvglow)" class="tv-light"/>
+          <ellipse cx="1345" cy="470" rx="200" ry="150" fill="url(#g-pcglow)"/>
+
+          <!-- fairy lights -->
+          <g class="fairy">
+            <path d="M380 62 Q 560 112 740 66 T 1100 66 T 1560 62" fill="none" stroke="#1a1422" stroke-width="2"/>
+            <g id="fairy-bulbs"></g>
+          </g>
+
+          <!-- poster above tv -->
+          <g transform="rotate(-2 540 245)">
+            <rect x="465" y="150" width="150" height="200" fill="#e8dcc6"/>
+            <rect x="477" y="162" width="126" height="138" fill="#e2563d"/>
+            <circle cx="540" cy="235" r="38" fill="#f4c25b"/>
+            <path d="M477 300 L520 250 L548 278 L572 255 L603 300 Z" fill="#2c2440"/>
+            <rect x="477" y="312" width="80" height="8" fill="#2c2440"/>
+            <rect x="477" y="326" width="50" height="5" fill="#2c2440" opacity=".5"/>
+            <circle cx="540" cy="156" r="4" fill="#d9d9d9"/>
+          </g>
+
+          <!-- small frame -->
+          <g transform="rotate(3 700 210)">
+            <rect x="660" y="170" width="80" height="80" fill="#1c1626" stroke="#c9a46b" stroke-width="5"/>
+            <circle cx="700" cy="203" r="14" fill="#f2d3a8"/>
+            <path d="M676 245 Q700 210 724 245 Z" fill="#7aa0c4"/>
+          </g>
+
+          <!-- WINDOW -->
+          <g class="window">
+            <rect x="880" y="104" width="300" height="10" rx="5" fill="#1a1422"/>
+            <rect x="925" y="122" width="210" height="250" fill="url(#g-sky)"/>
+            <g class="sky-stars">
+              <circle cx="955" cy="150" r="1.6"/><circle cx="1010" cy="190" r="1.2"/><circle cx="1090" cy="160" r="1.8"/>
+              <circle cx="975" cy="230" r="1.2"/><circle cx="1110" cy="255" r="1.3"/><circle cx="1050" cy="140" r="1"/>
+              <circle cx="945" cy="300" r="1.1"/><circle cx="1120" cy="210" r="1"/>
+            </g>
+            <g class="moon"><circle cx="1075" cy="185" r="22" fill="#fff4d6"/><circle cx="1085" cy="179" r="20" class="moon-bite"/></g>
+            <g class="sun"><circle cx="1070" cy="190" r="24" fill="#ffd36b"/></g>
+            <path d="M925 330 L960 300 L990 318 L1030 285 L1080 312 L1135 292 L1135 372 L925 372 Z" class="hills"/>
+            <g class="city">
+              <rect x="935" y="320" width="18" height="52"/><rect x="958" y="335" width="14" height="37"/>
+              <rect x="1080" y="326" width="22" height="46"/><rect x="1106" y="340" width="16" height="32"/>
+              <rect x="940" y="328" width="3" height="3" class="win-light"/><rect x="946" y="340" width="3" height="3" class="win-light"/>
+              <rect x="1086" y="334" width="3" height="3" class="win-light"/><rect x="1094" y="350" width="3" height="3" class="win-light"/>
+            </g>
+            <rect x="925" y="122" width="210" height="250" fill="none" stroke="#5a4232" stroke-width="10"/>
+            <line x1="1030" y1="122" x2="1030" y2="372" stroke="#5a4232" stroke-width="7"/>
+            <line x1="925" y1="247" x2="1135" y2="247" stroke="#5a4232" stroke-width="7"/>
+            <rect x="912" y="370" width="236" height="12" rx="3" fill="#6b4d3a"/>
+            <!-- plant on sill -->
+            <rect x="1095" y="346" width="26" height="24" rx="3" fill="#c76b4f"/>
+            <path d="M1108 346 Q1095 320 1088 326 M1108 346 Q1110 314 1104 312 M1108 346 Q1124 322 1130 330" stroke="#5f9a5c" stroke-width="5" fill="none" stroke-linecap="round"/>
+            <!-- curtains -->
+            <path d="M890 114 L945 114 Q935 250 952 400 L890 400 Z" fill="#7b3f55"/>
+            <path d="M1170 114 L1115 114 Q1125 250 1108 400 L1170 400 Z" fill="#7b3f55"/>
+            <path d="M905 114 Q900 260 905 400 M925 114 Q918 260 930 400" stroke="#5f2f42" stroke-width="3" fill="none"/>
+            <path d="M1155 114 Q1160 260 1155 400 M1135 114 Q1142 260 1130 400" stroke="#5f2f42" stroke-width="3" fill="none"/>
+          </g>
+
+          <!-- BED -->
+          <g class="bed">
+            <path d="M890 640 L890 500 Q890 470 920 470 L1140 470 Q1170 470 1170 500 L1170 640 Z" fill="#5c3f30"/>
+            <path d="M905 640 L905 505 Q905 485 925 485 L1135 485 Q1155 485 1155 505 L1155 640 Z" fill="#6d4b3a"/>
+            <rect x="915" y="555" width="105" height="48" rx="22" fill="#efe6da"/>
+            <rect x="1040" y="555" width="105" height="48" rx="22" fill="#e3d8ca"/>
+            <path d="M870 600 Q1030 585 1190 600 L1195 760 L865 760 Z" fill="#c4675a"/>
+            <path d="M870 640 Q1030 628 1190 640" stroke="#e7a08d" stroke-width="6" fill="none"/>
+            <path d="M868 700 Q1030 690 1192 700" stroke="#a9524a" stroke-width="3" fill="none"/>
+            <rect x="865" y="755" width="330" height="14" rx="4" fill="#4a3226"/>
+            <rect x="875" y="769" width="14" height="22" fill="#3a271d"/><rect x="1171" y="769" width="14" height="22" fill="#3a271d"/>
+            <!-- plushie -->
+            <circle cx="1100" cy="575" r="16" fill="#c7a27a"/><circle cx="1089" cy="561" r="6" fill="#c7a27a"/><circle cx="1111" cy="561" r="6" fill="#c7a27a"/>
+            <circle cx="1095" cy="574" r="1.8" fill="#2a2030"/><circle cx="1105" cy="574" r="1.8" fill="#2a2030"/>
+          </g>
+
+          <!-- RUG + CAT -->
+          <ellipse cx="760" cy="815" rx="380" ry="58" fill="#3e5b6b"/>
+          <ellipse cx="760" cy="815" rx="340" ry="44" fill="none" stroke="#d7b46a" stroke-width="3" stroke-dasharray="14 10" opacity=".7"/>
+          <g class="cat" transform="translate(700 790)">
+            <path class="cat-tail" d="M58 18 Q92 22 88 -2" stroke="#1c1622" stroke-width="9" fill="none" stroke-linecap="round"/>
+            <ellipse cx="30" cy="12" rx="40" ry="18" fill="#1c1622"/>
+            <circle cx="-4" cy="2" r="15" fill="#1c1622"/>
+            <path d="M-15 -6 L-12 -20 L-4 -11 Z M2 -11 L8 -20 L10 -5 Z" fill="#1c1622"/>
+            <path d="M-10 3 q3 2 6 0 M0 3 q3 2 6 0" stroke="#e8c36b" stroke-width="1.5" fill="none"/>
+          </g>
+          <text class="zzz" x="690" y="770" fill="#c9bfe0" font-family="Caveat, cursive" font-size="20">z</text>
+
+          <!-- ============ HOTSPOTS ============ -->
+
+          <!-- BOOKSHELF -->
+          <a href="#/books" class="hotspot" id="obj-books" data-room="books" aria-label="Bookshelf — books I've read">
+            <rect x="60" y="150" width="290" height="545" fill="transparent"/>
+            <rect x="70" y="170" width="270" height="520" rx="4" fill="#6b4530"/>
+            <rect x="84" y="184" width="242" height="496" fill="#2b1c14"/>
+            <g id="book-spines"></g>
+            <rect x="84" y="296" width="242" height="12" fill="#6b4530"/>
+            <rect x="84" y="418" width="242" height="12" fill="#6b4530"/>
+            <rect x="84" y="540" width="242" height="12" fill="#6b4530"/>
+            <rect x="62" y="162" width="286" height="14" rx="3" fill="#7d5238"/>
+            <!-- plant on top -->
+            <path d="M120 162 L116 132 L148 132 L144 162 Z" fill="#d38a5a"/>
+            <path d="M132 132 Q110 100 96 108 M132 132 Q128 92 140 86 M132 132 Q156 104 168 112 M132 132 Q112 120 102 132" stroke="#6aa863" stroke-width="6" fill="none" stroke-linecap="round"/>
+            <!-- little globe -->
+            <circle cx="290" cy="136" r="20" fill="#5c8fb8"/><path d="M276 128 q10 6 14 -4 q6 10 16 4 M282 146 q8 -6 18 2" stroke="#7fbf7a" stroke-width="5" fill="none"/>
+            <rect x="286" y="155" width="8" height="8" fill="#c9a46b"/>
+          </a>
+
+          <!-- TV + CABINET -->
+          <a href="#/watching" class="hotspot" id="obj-watching" data-room="watching" aria-label="TV — movies and TV shows">
+            <rect x="395" y="395" width="300" height="320" fill="transparent"/>
+            <rect x="380" y="600" width="490" height="100" rx="6" fill="#4b3326"/>
+            <rect x="394" y="614" width="226" height="72" rx="3" fill="#5a3e2f"/>
+            <rect x="630" y="614" width="226" height="72" rx="3" fill="#5a3e2f"/>
+            <rect x="495" y="645" width="24" height="5" rx="2" fill="#c9a46b"/><rect x="731" y="645" width="24" height="5" rx="2" fill="#c9a46b"/>
+            <rect x="392" y="700" width="12" height="14" fill="#2f1f18"/><rect x="846" y="700" width="12" height="14" fill="#2f1f18"/>
+            <rect x="540" y="582" width="30" height="20" fill="#16121b"/>
+            <rect x="505" y="595" width="100" height="7" rx="3" fill="#16121b"/>
+            <rect x="404" y="400" width="302" height="186" rx="10" fill="#16121b"/>
+            <rect x="416" y="412" width="278" height="160" rx="4" fill="url(#g-tv)" class="tv-screen"/>
+            <g class="tv-show">
+              <circle cx="610" cy="470" r="26" fill="#ffd27a" opacity=".9"/>
+              <path d="M416 572 L416 520 L480 480 L540 525 L600 495 L694 545 L694 572 Z" fill="#14324f" opacity=".85"/>
+              <path d="M416 572 L416 548 L500 520 L580 552 L694 530 L694 572 Z" fill="#0d2238"/>
+            </g>
+            <rect x="416" y="412" width="278" height="160" rx="4" fill="url(#p-scan)"/>
+            <rect x="416" y="412" width="278" height="160" rx="4" class="tv-flicker" fill="#fff" opacity="0"/>
+            <circle cx="688" cy="578" r="3" fill="#ff5a5a" class="tv-led"/>
+          </a>
+
+          <!-- RECORD PLAYER -->
+          <a href="#/music" class="hotspot" id="obj-music" data-room="music" aria-label="Record player — music I love">
+            <rect x="712" y="500" width="160" height="300" fill="transparent"/>
+            <!-- turntable on cabinet -->
+            <path d="M722 600 L736 560 L858 560 L866 600 Z" fill="#c9a46b"/>
+            <rect x="722" y="592" width="144" height="10" fill="#9c7a48"/>
+            <ellipse cx="795" cy="578" rx="52" ry="12" fill="#121014"/>
+            <g class="vinyl-top"><ellipse cx="795" cy="578" rx="36" ry="8" fill="none" stroke="#2c2830" stroke-width="2"/>
+            <ellipse cx="795" cy="578" rx="13" ry="3.5" fill="#e2563d"/></g>
+            <path d="M852 566 L846 548 L822 574" stroke="#e8e2d6" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <!-- speaker -->
+            <rect x="742" y="510" width="44" height="50" rx="4" fill="#2a2030"/>
+            <circle cx="764" cy="542" r="12" fill="#151018"/><circle cx="764" cy="542" r="5" fill="#3a3040"/><circle cx="764" cy="521" r="5" fill="#151018"/>
+            <!-- records leaning on floor -->
+            <g transform="rotate(-8 880 760)">
+              <rect x="838" y="690" width="70" height="70" fill="#f0c04a"/>
+              <circle cx="873" cy="725" r="18" fill="#e2563d"/>
+            </g>
+            <g transform="rotate(6 880 760)">
+              <rect x="852" y="696" width="66" height="66" fill="#3e8f8a"/>
+              <path d="M852 740 L918 710" stroke="#f4e3c3" stroke-width="5"/>
+            </g>
+            <g class="music-notes" fill="#f4e3c3" font-family="Archivo, sans-serif" font-size="22">
+              <text x="830" y="540">♪</text><text x="852" y="520">♫</text>
+            </g>
+          </a>
+
+          <!-- CORKBOARD -->
+          <a href="#/about" class="hotspot" id="obj-about" data-room="about" aria-label="Corkboard — about me and contact">
+            <rect x="1255" y="140" width="260" height="210" fill="transparent"/>
+            <rect x="1265" y="150" width="240" height="180" rx="4" fill="#7a5236"/>
+            <rect x="1277" y="162" width="216" height="156" fill="url(#p-cork)"/>
+            <g transform="rotate(-6 1310 210)"><rect x="1288" y="178" width="58" height="66" fill="#fbf7ee"/><rect x="1294" y="184" width="46" height="40" fill="#7aa0c4"/><circle cx="1317" cy="204" r="9" fill="#f2d3a8"/></g>
+            <g transform="rotate(4 1395 205)"><rect x="1365" y="178" width="62" height="54" fill="#ffe27a"/><path d="M1372 194 h46 M1372 204 h40 M1372 214 h30" stroke="#8a6d2a" stroke-width="3"/></g>
+            <g transform="rotate(-3 1460 220)"><rect x="1436" y="182" width="46" height="70" fill="#f28fae"/><path d="M1442 198 h32 M1442 208 h26" stroke="#9c3f5c" stroke-width="3"/></g>
+            <g transform="rotate(5 1330 280)"><rect x="1300" y="258" width="70" height="46" fill="#9ed4c0"/><path d="M1308 272 h50 M1308 282 h40 M1308 292 h46" stroke="#3f7a66" stroke-width="3"/></g>
+            <g transform="rotate(-4 1430 285)"><rect x="1395" y="262" width="78" height="44" fill="#fbf7ee"/><text x="1402" y="291" font-family="Caveat, cursive" font-size="20" fill="#2a2030">hi :)</text></g>
+            <circle cx="1317" cy="180" r="4" fill="#e2563d"/><circle cx="1396" cy="180" r="4" fill="#3e8fd6"/><circle cx="1459" cy="185" r="4" fill="#f0c04a"/><circle cx="1335" cy="260" r="4" fill="#e2563d"/><circle cx="1434" cy="265" r="4" fill="#5fb06a"/>
+            <path d="M1317 180 L1396 180 L1459 185" stroke="#e2563d" stroke-width="1.5" fill="none" opacity=".8"/>
+          </a>
+
+          <!-- DESK (decor parts not part of PC hotspot) -->
+          <g class="desk">
+            <rect x="1190" y="560" width="360" height="18" rx="3" fill="#7a5238"/>
+            <rect x="1205" y="578" width="14" height="140" fill="#5c3c29"/>
+            <rect x="1420" y="578" width="115" height="140" fill="#6b4630"/>
+            <rect x="1430" y="590" width="95" height="56" rx="3" fill="#7a5238"/><rect x="1430" y="654" width="95" height="56" rx="3" fill="#7a5238"/>
+            <rect x="1466" y="614" width="24" height="5" rx="2" fill="#c9a46b"/><rect x="1466" y="678" width="24" height="5" rx="2" fill="#c9a46b"/>
+            <!-- lamp -->
+            <ellipse cx="1218" cy="557" rx="24" ry="6" fill="#2a2030"/>
+            <path d="M1218 555 L1240 470 L1210 432" stroke="#2a2030" stroke-width="6" fill="none" stroke-linecap="round"/>
+            <path d="M1186 420 L1236 402 L1250 440 Z" fill="#e2b04a"/>
+            <ellipse cx="1220" cy="438" rx="12" ry="5" fill="#fff1c4" class="lamp-bulb" transform="rotate(-20 1220 438)"/>
+            <!-- clock -->
+            <rect x="1468" y="526" width="68" height="34" rx="6" fill="#16121b"/>
+            <text id="desk-clock" x="1502" y="550" text-anchor="middle" font-family="VT323, monospace" font-size="22" fill="#ff6b6b">12:00</text>
+            <!-- mug -->
+            <rect x="1440" y="534" width="20" height="26" rx="3" fill="#e9e1d4"/><path d="M1460 540 q10 0 10 8 q0 8 -10 8" stroke="#e9e1d4" stroke-width="3" fill="none"/>
+            <path class="steam" d="M1446 528 q-6 -10 0 -18 M1454 528 q6 -10 0 -18" stroke="#fff" stroke-width="2" fill="none" opacity=".35"/>
+          </g>
+
+          <!-- PC -->
+          <a href="#/games" class="hotspot" id="obj-games" data-room="games" aria-label="PC — video games">
+            <rect x="1250" y="380" width="200" height="345" fill="transparent"/>
+            <!-- monitor -->
+            <rect x="1258" y="390" width="186" height="128" rx="7" fill="#111016"/>
+            <rect x="1267" y="399" width="168" height="105" rx="2" fill="url(#g-monitor)"/>
+            <circle cx="1351" cy="455" r="14" fill="#ffd27a" class="pc-sun"/>
+            <g fill="#ff7ab0" opacity=".6"><rect x="1267" y="466" width="168" height="1.5"/><rect x="1267" y="471" width="168" height="1.5"/><rect x="1267" y="478" width="168" height="1.5"/></g>
+            <path d="M1267 504 L1300 470 L1320 485 L1351 462 L1385 488 L1410 474 L1435 504 Z" fill="#1d1336"/>
+            <g class="pc-sprite"><rect x="1300" y="486" width="10" height="10" fill="#7cf3c0"/><rect x="1302" y="488" width="2" height="2" fill="#111"/><rect x="1306" y="488" width="2" height="2" fill="#111"/></g>
+            <text x="1351" y="420" text-anchor="middle" font-family="VT323, monospace" font-size="14" fill="#fff" class="press-start">PRESS START</text>
+            <rect x="1267" y="399" width="168" height="105" rx="2" fill="url(#p-scan)"/>
+            <rect x="1340" y="518" width="22" height="30" fill="#1b1820"/>
+            <rect x="1310" y="546" width="82" height="8" rx="3" fill="#1b1820"/>
+            <!-- keyboard + mouse -->
+            <rect x="1268" y="553" width="140" height="8" rx="2" fill="#2a2532"/>
+            <g class="rgb"><rect x="1272" y="555" width="132" height="2" rx="1"/></g>
+            <rect x="1416" y="551" width="14" height="10" rx="5" fill="#2a2532"/>
+            <!-- tower -->
+            <rect x="1290" y="600" width="74" height="122" rx="5" fill="#16121b"/>
+            <rect x="1298" y="610" width="58" height="80" rx="3" fill="#221c2b"/>
+            <circle cx="1327" cy="634" r="13" fill="none" class="rgb-stroke" stroke-width="3"/>
+            <circle cx="1327" cy="668" r="13" fill="none" class="rgb-stroke" stroke-width="3"/>
+            <circle cx="1350" cy="704" r="3" fill="#7cf3c0"/>
+          </a>
+
+
+        </svg>
+
+        <!-- floating labels (positioned by JS over each object) -->
+        <div class="labels" id="labels" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <header class="room-ui room-head">
+      <p class="room-name">shivam's room</p>
+      <p class="room-sub" id="room-greeting">come in, click around.</p>
+    </header>
+
+    <nav class="room-ui room-dock" aria-label="Rooms">
+      <a href="#/books" data-room="books">Books</a>
+      <a href="#/games" data-room="games">Games</a>
+      <a href="#/watching" data-room="watching">Movies &amp; TV</a>
+      <a href="#/music" data-room="music">Music</a>
+      <a href="#/about" data-room="about">About</a>
     </nav>
-  </header>
+    <p class="room-ui swipe-hint" aria-hidden="true">← swipe to look around →</p>
+  </div>
 
-  <main id="main">
+  <!-- the "fade-into" layer used during the zoom transition -->
+  <div class="wash" id="wash" aria-hidden="true"></div>
 
-    <!-- Hero -->
-    <section class="hero" id="hero" aria-labelledby="hero-heading">
-      <p class="kicker">Consultant · Marketer · Developer</p>
-      <h2 id="hero-heading" class="hero-statement">
-        Strategy&#8209;first. Digitally fluent.<br>
-        I make brands work <em>smarter.</em>
-      </h2>
-      <p class="hero-sub">
-        Management consulting intern, digital marketing master's student
-        and AI/ML learner. One person, the whole pipeline.
-      </p>
-      <div class="hero-actions">
-        <a class="btn btn-dark" href="#work">Explore my work</a>
-        <a class="btn btn-accent" href="#contact">Get in touch<span aria-hidden="true"> →</span></a>
+  <!-- ============ PAGES ============ -->
+  <main id="pages">
+
+    <section class="page page-books" id="page-books" data-room="books" hidden aria-labelledby="books-title">
+      <button class="back" type="button">← back to the room</button>
+      <div class="page-inner">
+        <header class="page-head">
+          <p class="eyebrow">the bookshelf</p>
+          <h1 id="books-title">Books I've <em>read</em></h1>
+          <p class="lede" id="books-stat"></p>
+        </header>
+        <div class="filters" role="tablist" aria-label="Filter books" data-filter-for="books"></div>
+        <ul class="book-grid" id="book-grid"></ul>
       </div>
     </section>
 
-    <!-- Vision -->
-    <section class="vision" id="vision" aria-labelledby="vision-heading">
-      <h2 class="visually-hidden" id="vision-heading">Vision</h2>
-      <p class="vision-statement">
-        I build high&#8209;growth connections between structured corporate strategy,
-        digital audience mapping and automated <em>deep learning</em> execution.
-      </p>
-      <p class="vision-note">
-        A broad strategic background lets me communicate effortlessly with stakeholders,
-        while my technical skills mean I can write the execution files myself.
-      </p>
-    </section>
-
-    <!-- Work index -->
-    <section class="work" id="work" aria-labelledby="work-heading">
-      <div class="section-head">
-        <h2 id="work-heading"><span class="dot" aria-hidden="true"></span>Selected work</h2>
-        <p>Three case studies, three disciplines.</p>
-      </div>
-
-      <ul class="work-index">
-        <li><a href="#case-gtm">Enterprise Go&#8209;To&#8209;Market<span class="index-tag">Consulting</span></a></li>
-        <li><a href="#case-funnel">Consumer Funnel Build<span class="index-tag">Marketing</span></a></li>
-        <li><a href="#case-ml">Predictive Scoring Pipelines<span class="index-tag">AI / ML</span></a></li>
-      </ul>
-
-      <!-- Case study 1 -->
-      <article class="case" id="case-gtm" aria-labelledby="case-gtm-title">
-        <div class="case-text">
-          <p class="case-eyebrow">01 — Consulting Strategy &amp; Ops</p>
-          <h3 id="case-gtm-title">Enterprise go&#8209;to&#8209;market &amp; cycle optimisation.</h3>
-          <p>
-            Operational modelling for distribution bottlenecks. I mapped the full
-            stakeholder cycle, found where deals stalled, and rebuilt the handover
-            logic so the pipeline moved on schedule instead of on chance.
-          </p>
-        </div>
-        <div class="case-stats">
-          <p class="stats-label"><span class="dot" aria-hidden="true"></span>Measured outcome</p>
-          <div class="stat-row">
-            <div class="stat stat-accent">
-              <span class="stat-caption">Stakeholder pipeline</span>
-              <span class="stat-figure">+24%</span>
-            </div>
-            <div class="stat stat-grey">
-              <span class="stat-caption">Scope</span>
-              <span class="stat-figure stat-figure-small">End&#8209;to&#8209;end</span>
-            </div>
+    <section class="page page-games" id="page-games" data-room="games" hidden aria-labelledby="games-title">
+      <button class="back" type="button">← back to the room</button>
+      <div class="page-inner">
+        <div class="win">
+          <div class="win-bar"><span class="win-dots"><i></i><i></i><i></i></span><span>C:\SHIVAM\GAMES</span><span class="win-x" aria-hidden="true">_ □ ×</span></div>
+          <div class="win-body">
+            <p class="term"><span class="prompt">C:\SHIVAM&gt;</span> <span id="games-typed"></span><span class="caret">█</span></p>
+            <h1 id="games-title" class="visually-hidden">Video games</h1>
+            <p class="term-out" id="games-stat"></p>
+            <div class="filters" role="tablist" aria-label="Filter games" data-filter-for="games"></div>
+            <ul class="game-list" id="game-list"></ul>
           </div>
         </div>
-      </article>
-
-      <!-- Case study 2 -->
-      <article class="case case-flip" id="case-funnel" aria-labelledby="case-funnel-title">
-        <div class="case-text">
-          <p class="case-eyebrow">02 — Digital Marketing</p>
-          <h3 id="case-funnel-title">The hyper&#8209;targeted consumer funnel build.</h3>
-          <p>
-            Search engine and multi&#8209;touch campaigns for a direct&#8209;to&#8209;consumer
-            apparel brand. Audience mapping first, creative second, budget last,
-            and every euro tracked from impression to checkout.
-          </p>
-        </div>
-        <div class="case-stats">
-          <p class="stats-label"><span class="dot" aria-hidden="true"></span>Measured outcome</p>
-          <div class="stat-row">
-            <div class="stat stat-accent">
-              <span class="stat-caption">Verified return</span>
-              <span class="stat-figure">4.2&times;</span>
-            </div>
-            <div class="stat stat-grey">
-              <span class="stat-caption">Channels</span>
-              <span class="stat-figure stat-figure-small">Multi&#8209;touch</span>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- Case study 3 -->
-      <article class="case" id="case-ml" aria-labelledby="case-ml-title">
-        <div class="case-text">
-          <p class="case-eyebrow">03 — Artificial Intelligence</p>
-          <h3 id="case-ml-title">Custom predictive scoring pipelines.</h3>
-          <p>
-            Random&#8209;forest classification for user intent ranking, built in Python
-            with Scikit&#8209;Learn and Pandas. Trained over 200 epochs at batch size 32,
-            landing at a 0.0242 test loss.
-          </p>
-        </div>
-        <div class="case-stats">
-          <p class="stats-label"><span class="dot" aria-hidden="true"></span>Measured outcome</p>
-          <div class="stat-row">
-            <div class="stat stat-accent">
-              <span class="stat-caption">Model accuracy</span>
-              <span class="stat-figure">96.8%</span>
-            </div>
-            <div class="stat stat-grey">
-              <span class="stat-caption">Test loss</span>
-              <span class="stat-figure stat-figure-small">0.0242</span>
-            </div>
-          </div>
-        </div>
-      </article>
-    </section>
-
-    <!-- Skills -->
-    <section class="skills" id="skills" aria-labelledby="skills-heading">
-      <div class="section-head">
-        <h2 id="skills-heading"><span class="dot" aria-hidden="true"></span>Skills</h2>
-        <p>Three clusters that talk to each other.</p>
-      </div>
-      <div class="skills-grid">
-        <div class="skill-card">
-          <h3>Management &amp; operations strategy</h3>
-          <ul>
-            <li>Go-to-market planning</li>
-            <li>Stakeholder communication</li>
-            <li>Operational modelling</li>
-            <li>Cycle &amp; bottleneck analysis</li>
-          </ul>
-        </div>
-        <div class="skill-card">
-          <h3>Modern digital growth loops</h3>
-          <ul>
-            <li>Audience mapping</li>
-            <li>Search &amp; multi-touch campaigns</li>
-            <li>Funnel design &amp; attribution</li>
-            <li>ROI measurement</li>
-          </ul>
-        </div>
-        <div class="skill-card">
-          <h3>Artificial intelligence &amp; computation</h3>
-          <ul>
-            <li>Python</li>
-            <li>Scikit-Learn &amp; Pandas</li>
-            <li>Supervised learning</li>
-            <li>Predictive scoring models</li>
-          </ul>
-        </div>
       </div>
     </section>
 
-    <!-- About -->
-    <section class="about" id="about" aria-labelledby="about-heading">
-      <h2 class="visually-hidden" id="about-heading">About</h2>
-      <p class="about-statement">
-        Most strategists can't ship. Most builders can't brief a boardroom.<br>
-        <em>I do both.</em>
-      </p>
+    <section class="page page-watching" id="page-watching" data-room="watching" hidden aria-labelledby="watching-title">
+      <button class="back" type="button">← back to the room</button>
+      <div class="static" aria-hidden="true"></div>
+      <div class="page-inner">
+        <header class="page-head">
+          <p class="eyebrow"><span class="rec">●</span> <span id="channel">CH 01</span> · now showing</p>
+          <h1 id="watching-title">Movies &amp; TV</h1>
+        </header>
+        <div class="filters channels" role="tablist" aria-label="Choose channel" data-filter-for="watching"></div>
+        <ul class="poster-grid" id="poster-grid"></ul>
+      </div>
     </section>
 
-    <!-- Contact -->
-    <section class="contact" id="contact" aria-labelledby="contact-heading">
-      <p class="kicker">Contact</p>
-      <h2 id="contact-heading">Ready to discuss <em>new opportunities?</em></h2>
-      <div class="contact-actions">
-        <a class="btn btn-dark" href="mailto:shivamsh4904@gmail.com">shivamsh4904@gmail.com</a>
-        <a class="btn btn-accent" href="https://www.linkedin.com/in/shivamsharmaco/" rel="me noopener noreferrer" target="_blank">LinkedIn<span aria-hidden="true"> →</span></a>
+    <section class="page page-music" id="page-music" data-room="music" hidden aria-labelledby="music-title">
+      <button class="back" type="button">← back to the room</button>
+      <div class="page-inner">
+        <header class="page-head">
+          <p class="eyebrow">the record crate</p>
+          <h1 id="music-title">On <em>repeat</em></h1>
+          <p class="lede">Albums that live on my turntable. Hover one to give it a spin.</p>
+        </header>
+        <ul class="crate" id="crate"></ul>
+      </div>
+    </section>
+
+    <section class="page page-about" id="page-about" data-room="about" hidden aria-labelledby="about-title">
+      <button class="back" type="button">← back to the room</button>
+      <div class="page-inner">
+        <div class="board" id="board"></div>
       </div>
     </section>
 
   </main>
 
-  <footer class="site-footer">
-    <p>© 2026 Shivam Sharma. All rights reserved.</p>
-    <p class="footer-tagline">Strategy first, digital fluency always.</p>
-  </footer>
-
-  <script src="js/main.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/room.js"></script>
 </body>
 </html>
